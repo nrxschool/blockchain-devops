@@ -3,9 +3,11 @@
 ## links
 
 
-https://medium.com/@vijayramraju22/blockchain-devops-686e22080eb9
-https://devopsdays.org/events/2018-fortaleza/program/misael-santos
-https://www.youtube.com/watch?v=uTEL8Ff1Zvk&list=PLIivdWyY5sqJrKl7D2u-gmis8h9K66qoj&index=1
+⏰ https://medium.com/@vijayramraju22/blockchain-devops-686e22080eb9
+⏰ https://devopsdays.org/events/2018-fortaleza/program/misael-santos
+⏰ https://www.youtube.com/watch?v=uTEL8Ff1Zvk&list=PLIivdWyY5sqJrKl7D2u-gmis8h9K66qoj&index=1
+⏰ https://www.youtube.com/watch?v=zZ6nO60G-vE
+⏰ https://www.youtube.com/watch?v=Lpz1ua3n_bU
 
 
 ## Ferramentas

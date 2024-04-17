@@ -1,5 +1,23 @@
 # Blockchain DevOps
 
+## Escopo
+
+- Focar em DREX (Besu)
+
+Explicar sobre Ethereum e EVM, Besu e JVM
+
+Foco no Node (Besu)
+
+Como operar
+Arquitetura
+Como manter
+Atualizações
+Escalabilidade
+Métricas e Observabilidade
+JSON-RPC e API
+Smartcontracts
+Consensos PoA, PoW, PoS
+
 ## links
 
 

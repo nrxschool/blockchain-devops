@@ -70,5 +70,26 @@
 
 **Aula 4.2: Visualização das Métricas**
 
-Tópicos: Visualização das métricas coletadas utilizando Grafana.
-Ferramentas: Grafana
+- Tópicos: Visualização das métricas coletadas utilizando Grafana.
+- Ferramentas: Grafana
+- Projeto: Criação de dashboards no Grafana para visualizar métricas de um node Besu.
+
+**Aula 4.3: Visualização e Indexação de Dados**
+
+- Tópicos: Uso de exploradores e indexadores de blockchain para visualização de dados.
+- Ferramentas: Blockscout, The Graph.
+- Projeto: Configuração de um explorador de blockchain e criação de subgrafos usando The Graph.
+
+## Módulo 5: Escalabilidade e Segurança
+
+**Aula 5.1: Técnicas de Escalabilidade para Blockchain**
+
+- Tópicos: Estratégias de escalonamento, gestão de tráfego de rede, teste de carga.
+- Ferramentas: Caliper, K6.
+- Projeto: Realização de testes de carga em um node Besu e análise dos resultados para planejamento de escalabilidade.
+
+**Aula 5.2: Segurança e Best Practices**
+
+- Tópicos: Vulnerabilidades de smart contracts, estratégias de segurança em CI/CD e ambientes blockchain.
+- Ferramentas: Slither, MythX.
+- Projeto: Análise de segurança de smart contracts e implementação de medidas de segurança no pipeline de CI/CD.

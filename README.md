@@ -11,7 +11,7 @@
 **Aula 1.2: Instalação e Configuração Inicial do Besu**
 
 - Tópicos: Passo a passo para instalação local do Hyperledger Besu, exploração da interface de linha de comando.
-- Ferramentas: Hyperledger Besu, terminal de comando.
+- Ferramentas: Hyperledger Besu, Besu CLI
 - Projeto: Instalação e configuração inicial de um node Besu no ambiente local do aluno.
 
 ## Módulo 2: Desenvolvimento e Implantação de Smart Contracts
@@ -19,7 +19,7 @@
 **Aula 2.1: Smart Contracts no Ethereum**
 
 - Tópicos: Ciclo de vida de desenvolvimento, build, teste e deploy de um smart contract ERC20.
-- Ferramentas: Solidity, Remix IDE, Metamask.
+- Ferramentas: Solidity, foundry, Metamask.
 - Projeto: Criação, teste e deploy de um smart contract ERC20 em uma rede de teste Ethereum.
 
 **Aula 2.2: JSON-RPC**
@@ -31,7 +31,7 @@
 **Aula 2.3: Integração e Automação de CI/CD**
 
 - Tópicos: Introdução a CI/CD, automação de testes e deployment de smart contracts.
--Ferramentas: Jenkins, GitLab CI, GitHub Actions.
+-Ferramentas: GitHub Actions.
 - Projeto: Configuração de um pipeline de CI/CD para automação do processo de testes e deployment de smart contracts.
 
 ## Módulo 3: Arquitetura e Operações de Node Blockchain
@@ -39,7 +39,7 @@
 **Aula 3.1: Configurando Docker e Dockerfiles para Besu**
 
 - Tópicos: Preparação do Besu para execução em contêineres, criação de Dockerfiles.
-- Ferramentas: Docker, Docker Compose.
+- Ferramentas: Docker.
 - Projeto: Desenvolvimento de um Dockerfile personalizado e deploy de um node Besu em contêiner.
 
 **Aula 3.2: Kubernetes e Orquestração de Containers**
@@ -57,7 +57,7 @@
 **Aula 3.4: Deploy com CI/CD**
 
 - Tópicos: Integração do CI/CD com serviços de cloud para deploy de smart contracts.
-- Ferramentas: Jenkins, AWS CodeDeploy, Azure DevOps.
+- Ferramentas: Github Actions.
 - Projeto: Configuração de um pipeline CI/CD para deploy de smart contracts em um ambiente de cloud.
 
 ## Módulo 4: Monitoramento, Observabilidade e Segurança

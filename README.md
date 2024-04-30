@@ -84,11 +84,23 @@
 
 **Aula 5.1: Técnicas de Escalabilidade para Blockchain**
 
-- Tópicos: Estratégias de escalonamento, gestão de tráfego de rede, teste de carga.
-- Ferramentas: Caliper, K6.
-- Projeto: Realização de testes de carga em um node Besu e análise dos resultados para planejamento de escalabilidade.
+- Tópicos: Conceitos de escalabilidade horizontal versus vertical, aplicados a nodes de blockchain em contêineres, Load Balancing, High Availability.
+- Ferramentas: Documentação técnica, estudos de caso.
+- Projeto: Levantar uma rede Besu em ambiente Kubernetes com suporte a HA
 
-**Aula 5.2: Segurança e Best Practices**
+**Aula 5.2: Aplicando Técnicas de Escalabilidade e Testes de Carga no Kubernetes**
+
+- Tópicos: Introdução ao teste de carga e stress, Alocação de recursos (CPU, memória), Monitoramento de carga
+- Ferramentas: Kubernetes, K6, Caliper, Prometheus.
+- Projeto: Realização de testes de carga e aplicação de ajustes de performance baseados nos resultados obtidos.
+
+**Aula 5.3: Segurança de Contêineres**
+
+- Tópicos: Melhores práticas de segurança para contêineres, exploração de vulnerabilidades comuns em contêineres, ferramentas de segurança específicas para Docker e Kubernetes.
+- Ferramentas: Docker Bench for Security, Kubernetes Security Posture Management (KSPM) tools.
+- Projeto: Auditoria de segurança em um contêiner Docker rodando um node Besu, implementação de correções baseadas nas recomendações de segurança.
+
+**Aula 5.4: Segurança em Smart Contracts**
 
 - Tópicos: Vulnerabilidades de smart contracts, estratégias de segurança em CI/CD e ambientes blockchain.
 - Ferramentas: Slither, MythX.

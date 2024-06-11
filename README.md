@@ -31,7 +31,7 @@
 **Aula 2.3: Integração e Automação de CI/CD**
 
 - Tópicos: Introdução a CI/CD, automação de testes e deployment de smart contracts.
--Ferramentas: GitHub Actions.
+- Ferramentas: GitHub Actions.
 - Projeto: Configuração de um pipeline de CI/CD para automação do processo de testes e deployment de smart contracts.
 
 ## Módulo 3: Arquitetura e Operações de Node Blockchain

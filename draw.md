@@ -1,3 +1,8 @@
+## Referencias
+
+- ⏰ https://consensys.io/blog/eight-years-of-evolution-the-history-of-ethereum-and-consensys
+- ⏰ https://ethereum.org/en/developers/docs/nodes-and-clients/
+
 ## Escopo
 
 - Focar em DREX (Besu)
@@ -18,7 +23,6 @@ Consensos PoA, PoW, PoS
 
 ## links
 
-
 - ⏰ https://www.youtube.com/watch?v=nH4qjmP2KEE
 - ⏰ https://www.youtube.com/watch?v=vBnqxMo0sLc&list=PLZvgWu86XaWnJTCJuiRhxlLaw1S3EwNF6&index=14
 - ⏰ https://www.youtube.com/watch?v=F5XagssFor8&list=PLZvgWu86XaWnJTCJuiRhxlLaw1S3EwNF6&index=15
@@ -30,9 +34,7 @@ Consensos PoA, PoW, PoS
 - ⏰ https://www.youtube.com/watch?v=Lpz1ua3n_bU
 - ⏰ https://www.youtube.com/@CassioBatistaPereira
 
-
 ## Ferramentas
-
 
 JVM, Besu, Ethereum, EVM
 
@@ -47,21 +49,21 @@ Monitoring: Prometheus, Grafana
 from Dev to Ops in Web3
 
 1. Subir a infra.
-    - Comparativo entre blockchains (Bitcoin, Ethereum, Near, Solana, Polkadot (Parachains))
-    - Entender sobre Besu
-    - Entender sobre Docker/Compose
-    - Entender sobre Kubernetes
-    - Prometheus
-    - Grafana
-    - Blockscout
-    - K6/Calipter
-    - Entender sobre Cloud
+
+   - Comparativo entre blockchains (Bitcoin, Ethereum, Near, Solana, Polkadot (Parachains))
+   - Entender sobre Besu
+   - Entender sobre Docker/Compose
+   - Entender sobre Kubernetes
+   - Prometheus
+   - Grafana
+   - Blockscout
+   - K6/Calipter
+   - Entender sobre Cloud
 
 2. Utilizar a infra.
-    - Smartcontract life cycle
-    - Análise Estatica
-    - CI/CD
-
+   - Smartcontract life cycle
+   - Análise Estatica
+   - CI/CD
 
 ## Mentalidade
 

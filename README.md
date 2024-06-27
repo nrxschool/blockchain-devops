@@ -8,55 +8,25 @@
 - Ferramentas: Slides de apresentação, vídeos ilustrativos
 - Projeto: Apresentar noção histórica do tema
 
-**Aula 1.2: Análise do Bitcoin**
+**aula 1.2: Como funciona qualquer blockchain**
 
-- Tópicos: Entender detalhes técinos sobre o Bitcoin: Wallet, Tx, Bloco, Consenso
-- Ferramentas: Slides de apresentação, vídeos ilustrativos
-- Projeto: Criar uma carteira Bitcoin e usar a Testnet
+- Tópicos: Template de como estudar uma blockchain
+- Ferramentas: Slides
+- Projeto: Template de estudo
 
-**Aula 1.3: Análise do Ethereum**
-
-- Tópicos: Entender detalhes técinos sobre o Ethereum: Wallet, Tx, Bloco, Consenso
-- Ferramentas: Slides de apresentação, vídeos ilustrativos
-- Projeto: Criar uma carteira Ethereum e usar a Testnet
-
-**Aula 1.4: Análise da Solana**
-
-- Tópicos: Entender detalhes técinos sobre o Solana: Wallet, Tx, Bloco, Consenso
-- Ferramentas: Slides de apresentação, vídeos ilustrativos
-- Projeto: Criar uma carteira Solana e usar a Testnet
-
-**Aula 1.5: Análise da Polkadot**
-
-- Tópicos: Entender detalhes técinos sobre o Polkadot: Wallet, Tx, Bloco, Consenso
-- Ferramentas: Slides de apresentação, vídeos ilustrativos
-- Projeto: Criar uma carteira Polkadot e usar a Testnet
-
-**Aula 1.6: Análise da Near**
-
-- Tópicos: Entender detalhes técinos sobre o Near: Wallet, Tx, Bloco, Consenso
-- Ferramentas: Slides de apresentação, vídeos ilustrativos
-- Projeto: Criar uma carteira Near e usar a Testnet
-
-**Aula 1.7: Análise da R3Corda**
-
-- Tópicos: Entender detalhes técinos sobre o R3Corda: Wallet, Tx, Bloco, Consenso
-- Ferramentas: Slides de apresentação, vídeos ilustrativos
-- Projeto: Criar uma carteira R3Corda e usar a Testnet
-
-**Aula 1.8: Análise do Hyperledger Besu**
+**Aula 1.3: Análise do Hyperledger Besu**
 
 - Tópicos: Entender detalhes técinos sobre o Besu: Wallet, Tx, Bloco, Consenso
 - Ferramentas: Slides de apresentação, vídeos ilustrativos
 - Projeto: Criar uma carteira Besu e usar a Testnet
 
-**Aula 1.9: Instalação**
+**Aula 1.4: Instalação**
 
 - Tópicos: Passo a passo para instalação local do Besu e Solução de problemas
 - Ferramentas: Besu
 - Projeto: Instalação do Besu no ambiente local do aluno
 
-**Aula 1.10: Configuração Inicial do Besu**
+**Aula 1.5: Configuração Inicial do Besu**
 
 - Tópicos: Exploração da interface de linha de comando
 - Ferramentas: Besu, Besu CLI

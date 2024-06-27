@@ -1,6 +1,31 @@
+---
+marp: true
+theme: gaia
+paginations: true
+---
+
+<style>
+  section {
+    font-size: 25px;
+  }
+</style>
+
 # Template de Estudo de Blockchains
 
+1. Low-level
+2. High-level
+
+---
+
 ## Low-level
+
+- Wallets
+- Transações (tx)
+- Blocos
+- Consenso
+- Smartcontracts
+
+---
 
 ### Wallets
 
@@ -11,6 +36,10 @@
   2. Transformar Seed em PrivateKey
   3. Calcular PublicKey pela PrivateKey
   4. Resumir a PublicKey em um Address (opcional)
+
+![wallet](wallet.png)
+
+---
 
 ### Transações (Tx)
 
@@ -23,6 +52,10 @@
   4. Assinar Tx
   5. Enviar para o Node
 
+![tx](tx.png)
+
+---
+
 ### Blocos
 
 - Definição: O que são blocos.
@@ -32,7 +65,11 @@
   2. Adciona no Mempool
   3. Agrega as transações em um bloco
 
-### Consenso:
+![block](block.png)
+
+---
+
+### Consenso
 
 - Definição: O que é o mecanismo de consenso.
 - Componentes: Proof of Work, Proof of Stake, SCP.
@@ -42,6 +79,10 @@
   2. Caso receba o bloco durante a mineração
      1. Valida o bloco
      2. Adiciona na cadeia de blocos
+
+![consenso](consensus.png)
+
+---
 
 ### Smartcontracts
 
@@ -59,39 +100,73 @@
         2. Enviar a tx
      3. Se for uma chamada para operação de leitura simples request
 
+![smartcontracs](./smartcontracts.png)
+
+---
+
 ## High-level
 
 ### Comparação com CRUD
 
-**Comparação sobre Banco de dados**
+- Banco de dados
+- Autenticação
+- Rede
+- Versionamento
+- Serveless
+
+---
+
+### Comparação sobre Banco de dados
 
 - Banco embarcado x Banco servidor
 - CRUD sem Delete
 - Estrutura do banco como Linked-list
 - Persistencia em lots (blocos)
 
-**Comparação sobre autenticação**
+![blockchain-db](./blockchain-db.png)
+
+---
+
+### Comparação sobre autenticação
 
 - email, senha + token vs chave privada, chave pública + assinatura
 
-**Comparação sobre rede**
+![auth-web3](./auth-web3.png)
+
+---
+
+### Comparação sobre rede
 
 - Redundancia e LoadBalancer
 - Sincronização dos nodes
 
-**Comparação sobre Versionamento**
+![network](./network.png)
+
+---
+
+### Comparação sobre Versionamento
 
 - CI/CD vs Deploy decentralizado
 - CI/CD vs Smartcontracts
 
-**Comparação sobre serveless**
+![version](./version.png)
+
+---
+
+### Comparação sobre serveless
 
 - Roteamento vs Endereços + calldata
 - Centralização vs Decentralização
+
+![route](./route.png)
+
+---
 
 ## Resumo da Aula
 
 - low-level
 - high-level
+
+---
 
 ## Próxima aula: Noções Históricas

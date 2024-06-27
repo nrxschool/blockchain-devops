@@ -1,21 +1,9 @@
----
-marp: true
-theme: gaia
-paginations: true
----
-
-<style>
-  section {
-    font-size: 25px;
-  }
-</style>
-
 # Template de Estudo de Blockchains
 
 1. Low-level
 2. High-level
 
----
+
 
 ## Low-level
 
@@ -37,7 +25,7 @@ paginations: true
   3. Calcular PublicKey pela PrivateKey
   4. Resumir a PublicKey em um Address (opcional)
 
-![wallet](wallet.png)
+![wallet](./wallet.png)
 
 ---
 
@@ -52,7 +40,7 @@ paginations: true
   4. Assinar Tx
   5. Enviar para o Node
 
-![tx](tx.png)
+![tx](./tx.png)
 
 ---
 
@@ -102,10 +90,9 @@ paginations: true
 
 ![smartcontracs](./smartcontracts.png)
 
----
 
-## High-level
 
+## High-level 
 ### Comparação com CRUD
 
 - Banco de dados
@@ -160,13 +147,13 @@ paginations: true
 
 ![route](./route.png)
 
----
+
 
 ## Resumo da Aula
 
 - low-level
 - high-level
 
----
+
 
 ## Próxima aula: Noções Históricas

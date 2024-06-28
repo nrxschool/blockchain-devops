@@ -34,17 +34,45 @@ Entre outros...
 
 - **Imagem Sugerida:** Diagrama da arquitetura do Besu
 
-Hyperledger Besu é um cliente Ethereum criado para ambientes corporativos e suporta tanto redes permissionadas quanto públicas.
-Principais componentes incluem vários protocolos de consenso, a Ethereum Virtual Machine (EVM), e APIs para interação com a rede.
+Hyperledger Besu é um cliente Ethereum criado para ambientes corporativos e suporta tanto redes permissionadas, privadas e públicas e tem diversos recursos interessantes como:
+
+- Ethereum Virtual Machine (EVM)
+- Multiplos algoritmos de consenso: PoA, PoW, PoS
+- Fornece APIs: JSON-RPC, GraphQL, Websocket e IPC
+- Monitoramento de métricas com Prometheus e Grafana e explorador com Blockscout e outros
+
+E outras mais como privacidade e criação de redes permisionadas, como o DREX
 
 ## Conceitos Fundamentais
 
-- **Wallet:** Hash e curvas elipticas
-- **Transações:** Padrões de tx compativeis com Ethereum
-- **Bloco:** Tamanho do bloco, tempo de bloco...
-- **Consenso:** Tipos de consenso que o hyperledger besu suporta
-- **Smart Contracts:** Versões de EVM suportadas
+O Besu compartilha a maioria das tecnologias do Ethereum, vamos relembrar elas aqui:
 
+- **Wallet e Criptografia:**
+
+  - Funções de Hash: SHA-3 (keccak256)
+  - Curvas elipticas: secp256k1 (Ethereum default) e secp256r1
+
+- **Transações:**
+
+  - Padrões de tx: Taxas dinâmicas com EIP1559 e blob transactions EIP4844
+  - Tamanho máximo: Baseado no gas (defaul 21.000) porém configuravel
+
+- **Bloco:**
+
+  - Tamanho do bloco: Baseado no gas (defaul 30.000.000) porém configuravel
+  - Tempo de bloco: default 15 segundos porém configuravel
+
+- **Consenso:**:
+
+  - Proof of Work (PoW): Ethash para redes públicas.
+  - Proof of Authority (PoA): QBFT, Clique e IBFT 2.0, para redes permissionadas e/ou ptivadas.
+  - Proof of Stake (PoS): Ethereum 2.0.
+
+- **Smart Contracts:**:
+  - Versões de EVM: Shangai
+
+
+@TODO
 ## O que é Metamask?
 
 Metamask é uma extensão de navegador que funciona como uma carteira digital para Ethereum e outras redes compatíveis. Permite a interação fácil com dApps (aplicações descentralizadas).

@@ -25,7 +25,7 @@
   3. Calcular PublicKey pela PrivateKey
   4. Resumir a PublicKey em um Address (opcional)
 
-![wallet](./wallet.png)
+![wallet](./assets/wallet.png)
 
 ---
 
@@ -40,7 +40,7 @@
   4. Assinar Tx
   5. Enviar para o Node
 
-![tx](./tx.png)
+![tx](./assets/tx.png)
 
 ---
 
@@ -53,7 +53,7 @@
   2. Adciona no Mempool
   3. Agrega as transações em um bloco
 
-![block](block.png)
+![block](./assets/block.png)
 
 ---
 
@@ -68,7 +68,7 @@
      1. Valida o bloco
      2. Adiciona na cadeia de blocos
 
-![consenso](consensus.png)
+![consenso](./assets/consensus.png)
 
 ---
 
@@ -88,7 +88,7 @@
         2. Enviar a tx
      3. Se for uma chamada para operação de leitura simples request
 
-![smartcontracs](./smartcontracts.png)
+![smartcontracs](./assets/smartcontracts.png)
 
 
 
@@ -110,7 +110,7 @@
 - Estrutura do banco como Linked-list
 - Persistencia em lots (blocos)
 
-![blockchain-db](./blockchain-db.png)
+![blockchain-db](./assets/blockchain-db.png)
 
 ---
 
@@ -118,7 +118,7 @@
 
 - email, senha + token vs chave privada, chave pública + assinatura
 
-![auth-web3](./auth-web3.png)
+![auth-web3](./assets/auth-web3.png)
 
 ---
 
@@ -127,7 +127,7 @@
 - Redundancia e LoadBalancer
 - Sincronização dos nodes
 
-![network](./network.png)
+![network](./assets/network.png)
 
 ---
 
@@ -136,7 +136,7 @@
 - CI/CD vs Deploy decentralizado
 - CI/CD vs Smartcontracts
 
-![version](./version.png)
+![version](./assets/version.png)
 
 ---
 
@@ -145,7 +145,7 @@
 - Roteamento vs Endereços + calldata
 - Centralização vs Decentralização
 
-![route](./route.png)
+![route](./assets/route.png)
 
 
 

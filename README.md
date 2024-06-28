@@ -18,7 +18,7 @@
 
 - Tópicos: Entender detalhes técinos sobre o Besu: Wallet, Tx, Bloco, Consenso
 - Ferramentas: Slides de apresentação, vídeos ilustrativos
-- Projeto: Criar uma carteira Besu e usar a Testnet
+- Projeto: Instalar a metamask
 
 **Aula 1.4: Instalação**
 

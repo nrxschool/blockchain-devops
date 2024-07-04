@@ -18,7 +18,7 @@
 ### Wallets
 
 - Definição: O que são wallets.
-- Tipos de Wallets: Hardware, software, paper, etc.
+- Tipos de Wallets: Hardware, software e paper.
 - Com funcionam:
   1. Criar Seed
   2. Transformar Seed em PrivateKey

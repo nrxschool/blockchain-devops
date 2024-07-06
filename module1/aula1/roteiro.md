@@ -57,11 +57,36 @@ Primeiro, vamos falar sobre banco de dados.
 
 ### Comparação sobre autenticação
 
-A autenticação em sistemas tradicionais usa email e senha, frequentemente combinados com tokens. No blockchain, utilizamos chaves privadas e públicas, juntamente com assinaturas, para garantir a segurança e a integridade. [Mostrar imagem aqui]
+A autenticação em sistemas tradicionais usa email e senha combinados com tokens de sessão. No blockchain, utilizamos chaves privadas e públicas, juntamente com assinaturas.
+
+**Web2**
+
+De um lado o usuário se identifica passando os dados como nome, email e uma senha pelo frontend que são persistido no banco de dados pelo banckend.
+
+Depois, para autenticação o usuário fornece apenas o email e senha para o sistema que devolve um token para o frontend para futuras autenticações.
+
+A autorização fica ligada ao tipo de token de acesso que o usuário tem.
+
+**Web3**
+
+Do outro lado o usuário cria o par de chaves sem interagir com o sistema usando uma wallet que guarda sua chave privada. E para se identifica enviando apenas a chave pública (email) e uma assinatura para provar que é dono daquela chave pública (email).
+
+Depois para autenticação o usuário envia sua transação serializada com uma assinatura, o sistema por sua vez valida a transação com a assinatura recuperando a chave pública do usuário.
+
+A autorização aqui está ligada a assinatura e chave pública, por exemplo: se Bob enviar um transação tentando gastar o saldo de Alice e assinar isso com sua chave privada, no momento que o sistema validar a transação com a assinatura vai recuperar a chave de Bob não de Alice e vai recusar a transação pois apenas a assinatura de Alice pode gastar o saldo dela.
+
+
+[Mostrar imagem aqui]
 
 ### Comparação sobre rede
 
-Na rede, sistemas tradicionais usam redundância e balanceadores de carga. Em blockchains, a sincronização dos nodes é fundamental para a manutenção do consenso e da integridade da rede. [Mostrar imagem aqui]
+Em sistemas tradicionais usamos um load balancer para centralizar o api gateway e gerenciar a carga enquanto escalamos as instancias das aplicações horizontalmente, isso é possivel pois as queries serão direcionadas (em filas ou não) para o banco de dados servidor assim as aplicações não precisam se preocupar com sincronização dos dados.
+
+Em blockchains a coisa muda pois cada node serve uma replica do banco de dados embarcado que pode (ou não) estar sincronizado. Sistemas blockchain não garantem Consistencia como o ACID mas baseado no Teorema CAP.
+
+Mesmo que hoje o uso de provider se tornou padrão pra aplicações que não precisam manter um node, é importante saber que cada node tem o estado mais próximo do atual da rede, mas não temos garantias disso
+
+A sincronização dos nodes é fundamental para a manutenção do consenso e da integridade da rede. [Mostrar imagem aqui]
 
 ### Comparação sobre Versionamento
 

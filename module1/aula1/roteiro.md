@@ -80,27 +80,35 @@ A autorização aqui está ligada a assinatura e chave pública, por exemplo: se
 
 ### Comparação sobre rede
 
-Em sistemas tradicionais usamos um load balancer para centralizar o api gateway e gerenciar a carga enquanto escalamos as instancias das aplicações horizontalmente, isso é possivel pois as queries serão direcionadas (em filas ou não) para o banco de dados servidor assim as aplicações não precisam se preocupar com sincronização dos dados.
+Em sistemas tradicionais usamos um load balancer para centralizar o api gateway e gerenciar a carga enquanto escalamos as instancias das aplicações horizontalmente, isso é possivel pois as queries serão direcionadas (em filas ou não) para um banco de dados servidor assim as aplicações não precisam se preocupar com sincronização dos dados.
 
 Em blockchains a coisa muda pois cada node serve uma replica do banco de dados embarcado que pode (ou não) estar sincronizado. Sistemas blockchain não garantem Consistencia como o ACID mas baseado no Teorema CAP.
 
-Mesmo que hoje o uso de provider se tornou padrão pra aplicações que não precisam manter um node, é importante saber que cada node tem o estado mais próximo do atual da rede, mas não temos garantias disso
+Mesmo que hoje o uso de provider se tornou padrão pra aplicações que não precisam manter um node, é importante saber que cada node tem o estado mais próximo do atual da rede, mas não temos garantias disso.
 
-A sincronização dos nodes é fundamental para a manutenção do consenso e da integridade da rede. [Mostrar imagem aqui]
+A sincronização dos nodes é fundamental para a integridade da rede e é disso que o protocolo de consenso cuida. [Mostrar imagem aqui]
 
 ### Comparação sobre Versionamento
 
-O versionamento em sistemas tradicionais é gerenciado por CI/CD, enquanto no blockchain temos o deploy descentralizado e a utilização de smartcontracts, que podem ser atualizados e versionados de maneira transparente e segura. [Mostrar imagem aqui]
+O versionamento em sistemas tradicionais é gerenciado por CI/CD e deploys em cloud que pertencem ao dono da aplicação.
+Enquanto no blockchain temos o deploy descentralizado, isso significa que não somos donos de todas as aplicações e precisamos de estratégias de governança para que a comunidade esteja sincronizada em termos de versões.
+
+Além disso os smartcontracts não podem ser apagados, isso leva a programação de smartcontracts mais próximo de programação de hardware onde não temos opção de atualização ou rollback, apenas novas versões que não apagam as anteriores.
+
+[Mostrar imagem aqui]
 
 ### Comparação sobre serveless
 
-Por fim, no contexto de serveless, sistemas tradicionais utilizam roteamento, enquanto blockchains usam endereços e calldata. A centralização dos serviços é substituída pela descentralização da rede blockchain. [Mostrar imagem aqui]
+E falando em smartcontracts vou compara eles com o Faas ou serverless de qualquer cloud, é a mesma ideia.
+Tem alguma diferença sobre onde e como esse código é executado mas pra uma primeira aproximação esta bom.
+
+A grande diferença é que nesse seu código está rodando de forma descentralização na rede blockchain, sendo que no cloud ele vai estar apenas distribuído em vários servidores mas todos pertencem a mesma empresa. [Mostrar imagem aqui]
 
 ## Resumo da Aula
 
-Recapitulando, abordamos conceitos de low-level, como wallets, transações, blocos, consenso e smartcontracts, e conceitos de high-level, comparando blockchains com sistemas CRUD tradicionais.
+Recapitulando, abordamos conceitos de low-level vendo em sequencia como funciona, as wallets, transações, blocos, consenso e smartcontracts, e conceitos de high-level, comparando blockchains com sistemas CRUD tradicionais.
 
 ## Próxima aula: Noções Históricas
 
 Na próxima aula, vamos explorar as noções históricas e entender a evolução da tecnologia blockchain.
-"""
+

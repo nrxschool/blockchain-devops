@@ -72,7 +72,7 @@ O Besu compartilha a maioria das tecnologias do Ethereum, vamos relembrar elas a
   - Versões de EVM: Shangai
 
 
-@TODO
+
 ## O que é Metamask?
 
 Metamask é uma extensão de navegador que funciona como uma carteira digital para Ethereum e outras redes compatíveis. Permite a interação fácil com dApps (aplicações descentralizadas).

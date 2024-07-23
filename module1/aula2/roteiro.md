@@ -1,5 +1,3 @@
-Claro, Lucas! Vou ajustar o roteiro para que a transição entre os tópicos seja mais fluida e contínua.
-
 # AULA 2: Noção Histórica das Criptomoedas e Blockchain
 
 ## Introdução

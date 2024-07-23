@@ -60,7 +60,7 @@
 ### Consenso
 
 - Definição: O que é o mecanismo de consenso.
-- Componentes: Proof of Work, Proof of Stake, SCP.
+- Componentes: Proof of Work, Proof of Stake.
 - Com funciona:
   1. Minera o bloco e transmite para os outros nodes
      1. O processo de mineração vária pra cada protocolo de consenso

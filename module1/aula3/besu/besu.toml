@@ -1,0 +1,41 @@
+genesis-file = "dev.json"
+miner-enabled = true
+miner-coinbase = "0xfe3b557e8fb62b89f4916b721be55ceb828dbd73"
+host-allowlist = ["*"]
+
+
+## HTTP RPC API
+rpc-http-enabled = true
+rpc-http-cors-origins = ["*"]
+rpc-http-host = "127.0.0.1"
+rpc-http-port = 8545
+rpc-http-api = ["ETH", "NET", "WEB3"]
+
+## SOCKET RPC API
+rpc-ws-enabled = true
+rpc-ws-host = "127.0.0.1"
+rpc-ws-port = 8546
+rpc-ws-api = ["ETH", "NET", "WEB3"]
+
+## GRAPHQL API
+graphql-http-enabled = true
+graphql-http-cors-origins = ["*"]
+graphql-http-host = "127.0.0.1"
+graphql-http-port = 8547
+
+## METRICS API
+metrics-enabled = true
+metrics-host = "127.0.0.1"
+metrics-port = 8548
+metrics-category = [
+    "BLOCKCHAIN",
+    "PEERS",
+    "PROCESS",
+    "ETHEREUM",
+    "TRANSACTION_POOL",
+]
+
+
+data-path = "./blockchain/"
+min-gas-price=200
+min-priority-fee=10

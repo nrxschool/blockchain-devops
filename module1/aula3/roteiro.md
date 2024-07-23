@@ -60,6 +60,8 @@ O Besu compartilha a maioria das tecnologias do Ethereum. Vamos relembrar elas a
 - **Smart Contracts:**
   - Versões de EVM: Shangai
 
+## Instalando e Configurando o Hyperledger Besu
+
 ## O que é Metamask?
 
 Agora que já temos uma base sobre como uma wallet funciona, vamos instalar a wallet mais usada no ecosistema web3 e Ethereum, a metamask.
@@ -90,6 +92,7 @@ window.ethereum.request({ method: "eth_requestAccounts" });
 
 ```js
 let transactionObject = {
+  from: "0xfffffffff",
   to: "0xRecipientAddress",
   value: "0x29a2241af62c0000", // valor em wei
   gas: "0x5208", // limite de gás
@@ -109,7 +112,7 @@ await window.ethereum.request({
 
 ## Instalação e configuração da metamask
 
-Para instalar basta acessar https://metamask.com e baixar a extensão especifica para seu navegador.
+Para instalar basta acessar https://metamask.io e baixar a extensão especifica para seu navegador.
 A configuração é algo específico por pra facilitar teu entendimento vou dividir assim:
 
 - Redes

@@ -18,9 +18,7 @@ Vamos utilizar o Docker Compose para subir simultaneamente todas as versões das
 
 Crie um arquivo chamado `docker-compose.yml` no diretório do seu projeto com o seguinte conteúdo:
 
-```yaml
-version: "3.7"
-
+```yml
 services:
   nginx_v1:
     image: meu-nginx:1.0
@@ -56,11 +54,9 @@ docker-compose logs -f
 
 #### 1.2.4. Verificar o Funcionamento
 
-- **Acessar os Servidores Nginx**:
-
-  - Versão 1.0: Abrir o navegador e acessar `http://localhost:8080`.
-  - Versão 2.0: Abrir o navegador e acessar `http://localhost:8081`.
-  - Versão 3.0: Abrir o navegador e acessar `http://localhost:8082`.
+- Versão 1.0: Abrir o navegador e acessar `http://localhost:8080`.
+- Versão 2.0: Abrir o navegador e acessar `http://localhost:8081`.
+- Versão 3.0: Abrir o navegador e acessar `http://localhost:8082`.
 
 ## Configurando uma Rede Blockchain Privada com 4 Nodes Besu
 
@@ -83,82 +79,7 @@ cd besu-network
 Crie um arquivo chamado `docker-compose.yml` com o seguinte conteúdo:
 
 ```yaml
-version: "3.7"
 
-services:
-  node1:
-    image: hyperledger/besu:latest
-    ports:
-      - "8545:8545"
-      - "8546:8546"
-    volumes:
-      - node1_data:/opt/besu/data
-    command:
-      [
-        "--data-path=/opt/besu/data",
-        "--genesis-file=/opt/besu/genesis.json",
-        "--rpc-http-enabled",
-        "--rpc-http-api=ETH,NET,WEB3",
-        "--host-whitelist=*",
-        "--rpc-http-cors-origins=*",
-      ]
-
-  node2:
-    image: hyperledger/besu:latest
-    ports:
-      - "8547:8545"
-      - "8548:8546"
-    volumes:
-      - node2_data:/opt/besu/data
-    command:
-      [
-        "--data-path=/opt/besu/data",
-        "--genesis-file=/opt/besu/genesis.json",
-        "--rpc-http-enabled",
-        "--rpc-http-api=ETH,NET,WEB3",
-        "--host-whitelist=*",
-        "--rpc-http-cors-origins=*",
-      ]
-
-  node3:
-    image: hyperledger/besu:latest
-    ports:
-      - "8549:8545"
-      - "8550:8546"
-    volumes:
-      - node3_data:/opt/besu/data
-    command:
-      [
-        "--data-path=/opt/besu/data",
-        "--genesis-file=/opt/besu/genesis.json",
-        "--rpc-http-enabled",
-        "--rpc-http-api=ETH,NET,WEB3",
-        "--host-whitelist=*",
-        "--rpc-http-cors-origins=*",
-      ]
-
-  node4:
-    image: hyperledger/besu:latest
-    ports:
-      - "8551:8545"
-      - "8552:8546"
-    volumes:
-      - node4_data:/opt/besu/data
-    command:
-      [
-        "--data-path=/opt/besu/data",
-        "--genesis-file=/opt/besu/genesis.json",
-        "--rpc-http-enabled",
-        "--rpc-http-api=ETH,NET,WEB3",
-        "--host-whitelist=*",
-        "--rpc-http-cors-origins=*",
-      ]
-
-volumes:
-  node1_data:
-  node2_data:
-  node3_data:
-  node4_data:
 ```
 
 ### 2.3. Arquivo `genesis.json`
@@ -166,26 +87,7 @@ volumes:
 Crie um arquivo chamado `genesis.json` com o seguinte conteúdo:
 
 ```json
-{
-  "config": {
-    "chainId": 1337,
-    "homesteadBlock": 0,
-    "eip150Block": 0,
-    "eip155Block": 0,
-    "eip158Block": 0,
-    "byzantiumBlock": 0,
-    "constantinopleBlock": 0,
-    "petersburgBlock": 0,
-    "ethash": {}
-  },
-  "difficulty": "1",
-  "gasLimit": "8000000",
-  "alloc": {
-    "0x0000000000000000000000000000000000000001": {
-      "balance": "1000000000000000000000000000"
-    }
-  }
-}
+
 ```
 
 ## Subindo a Rede
@@ -210,6 +112,12 @@ docker-compose logs -f
 
 ```bash
 curl -X POST --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' http://localhost:8545
+```
+
+- **Verificar quantidade de nodes**:
+
+```bash
+curl -X POST --data '{"jsonrpc":"2.0","method":"net_peerCount","params":[],"id":1}' localhost:8545
 ```
 
 ## Interagindo com a Rede Blockchain

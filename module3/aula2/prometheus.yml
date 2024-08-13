@@ -2,11 +2,6 @@ global:
   scrape_interval: 5s
 
 scrape_configs:
-  - job_name: "besu_node"
+  - job_name: 'besu_node'
     static_configs:
-      - targets: [
-        "10.10.0.11:8548",
-        "10.10.0.12:8548",
-        "10.10.0.13:8548",
-        "10.10.0.14:8548"
-      ]
+      - targets: ['besu:8548']

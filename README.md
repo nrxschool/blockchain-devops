@@ -50,12 +50,7 @@
 - Tópicos: História e Arquitetura do Grafana
 - Projeto: rodar o Grafana com Docker, Integrando Grafana com Prometheus, Criar dashboard no Grafana
 
-**Aula 3.4: Gestão de logs**
-
-- Tópicos: História e Arquitetura do XXX
-- Projeto: Coletar logs com o XXX
-
-**Aula 3.5: Explorador de Blocos**
+**Aula 3.4: Explorador de Blocos**
 
 - Tópicos: Configuração do Blockscout, integração com nodes Besu
 - Projeto: Configurar o Blockscout para monitorar um node Besu

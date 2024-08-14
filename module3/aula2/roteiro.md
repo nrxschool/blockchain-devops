@@ -2,7 +2,7 @@
 
 ### Introdução
 
-Hoje, vamos mergulhar em uma das ferramentas mais poderosas para o monitoramento em sistemas distribuídos: o Prometheus. Se você já se perguntou como grandes empresas mantêm suas infraestruturas robustas e seguras, o Prometheus faz parte da resposta. Mas, para entender todo o potencial dessa ferramenta, precisamos começar pela sua origem e como ela se tornou uma peça fundamental no ecossistema DevOps.
+Antes de colocarmos a mão na gracha, um pouco de contexto.
 
 ### História do Prometheus
 
@@ -12,15 +12,17 @@ Essa necessidade deu origem a um sistema de monitoramento que não só coletava 
 
 ### Arquitetura do Prometheus
 
-Agora que entendemos a história, vamos explorar a arquitetura do Prometheus. Imagine que você está montando uma rede blockchain. Seu node precisa ser monitorado em tempo real para garantir que esteja sempre funcionando de forma otimizada. O Prometheus entra aqui como seu aliado, funcionando como um guardião que coleta e armazena métricas a cada segundo.
+Agora que entendemos a história, vamos explorar a arquitetura do Prometheus. Imagine que você está montando uma rede blockchain. Seu node precisa ser monitorado em tempo real para garantir que esteja sempre funcionando de forma otimizada. O Prometheus entra aqui coletando e armazena métricas.
+
+[diagrama](https://prometheus.io/docs/introduction/overview/#architecture)
 
 O Prometheus se baseia em um modelo de pull, onde ele busca as métricas diretamente dos nodes que estão sendo monitorados. Esse modelo é diferente de muitas outras soluções que utilizam push, onde os nodes enviam dados para o servidor. A vantagem do modelo de pull é que ele oferece mais controle sobre o que está sendo monitorado e permite uma escalabilidade muito maior.
 
 Agora, vamos colocar isso em prática. Vamos rodar o Prometheus usando Docker e conectar nosso node Besu a ele.
 
-### Projeto Prático: Rodando o Prometheus com Docker
+### Overview no nosso Docker compose
 
-Primeiro, vamos iniciar o Prometheus. Se você seguiu a aula anterior, já tem um Docker Compose configurado com o serviço do Prometheus. Então, basta rodar o comando:
+Agora que entendemos o nosso [compose](./docker-compose.yml), vamos rodar tudo:
 
 ```bash
 docker-compose up -d
@@ -28,37 +30,12 @@ docker-compose up -d
 
 Uma vez que o Prometheus estiver rodando, você pode acessá-lo no navegador em `http://localhost:9090`. Aqui, você verá a interface do Prometheus, onde vamos explorar as métricas que estamos coletando.
 
----
-
-**Parte 2: Integrando o Besu com Prometheus**
-
----
-
-### Introdução
-
-Agora que você já sabe como rodar o Prometheus, vamos integrá-lo ao nosso node Besu. Essa integração é crucial para monitorar métricas em tempo real da nossa blockchain, desde o tempo de bloco até o tamanho da cadeia.
-
-### Configurando Jobs e Targets
-
-Primeiro, precisamos configurar o Prometheus para monitorar o nosso node Besu. Vamos utilizar a porta `8548`, que é onde o Besu expõe suas métricas.
-
-No arquivo `prometheus.yml`, já configuramos um job para o Besu:
-
-```yaml
-global:
-  scrape_interval: 5s
-
-scrape_configs:
-  - job_name: 'besu_node'
-    static_configs:
-      - targets: ['besu:8548']
-```
-
+Vamos passar o olho no nosso [arquivo](./prometheus.yml) de configuração do prometheus.
 Essa configuração instrui o Prometheus a buscar métricas do nosso node Besu a cada 5 segundos.
 
 ### Explorando as Métricas
 
-Com o Prometheus rodando e configurado, vamos agora acessar as métricas do Besu. No seu navegador, vá até `http://localhost:8548/metrics`. Aqui, você verá uma série de dados detalhados sobre o funcionamento do node.
+Agora vamos acessar as métricas do Besu. No seu navegador, vá até `http://localhost:8548/metrics`. Aqui, você verá uma série de dados detalhados sobre o funcionamento do node.
 
 Algumas métricas importantes que vamos focar são:
 
@@ -71,17 +48,22 @@ Algumas métricas importantes que vamos focar são:
 PromQL é a linguagem de consulta do Prometheus, e é aqui que a mágica acontece. Vamos executar alguns comandos para extrair informações valiosas:
 
 - Para o tempo de bloco:
-  ```promql
-  rate(besu_block_duration_seconds_sum[5m])
-  ```
+
+```bash
+rate(ethereum_best_known_block_number[5m])
+```
+
 - Para o número do bloco atual:
-  ```promql
-  besu_blockchain_height
-  ```
+
+```bash
+ethereum_blockchain_height
+```
+
 - Para o tamanho da blockchain em disco:
-  ```promql
-  besu_storage_size_bytes
-  ```
+
+```bash
+besu_storage_size_bytes
+```
 
 ### Criando Gráficos para Visualização
 
@@ -101,20 +83,23 @@ Vamos configurar um alerta simples para monitorar o número de transações:
 
 ```yaml
 groups:
-- name: besu_alerts
-  rules:
-  - alert: NewTransactions
-    expr: rate(besu_blockchain_height[1m]) > 0
-    for: 1m
-    labels:
-      severity: warning
-    annotations:
-      summary: "Novas transações foram mineradas"
-      description: "A blockchain registrou novas transações nos últimos 5 minutos."
+  - name: besu_alerts
+    rules:
+      - alert: NewTransactions
+        expr: rate(besu_blockchain_height[1m]) > 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Novas transações foram mineradas"
+          description: "A blockchain registrou novas transações nos últimos 5 minutos."
 ```
 
 ### Conclusão
 
-E com isso, concluímos a aula de hoje. Agora você tem o conhecimento necessário para monitorar e visualizar métricas cruciais de uma blockchain usando Prometheus, além de configurar alertas para garantir que nada passe despercebido.
+Agora você tem o conhecimento de:
 
-Na próxima aula, vamos explorar como automatizar ainda mais o monitoramento e responder a incidentes automaticamente. Até lá, continue experimentando com as ferramentas que aprendemos hoje!
+- monitorar e visualizar métricas usando Prometheus
+- configurar alertas com AlertManager e Prometheus
+
+Na próxima aula, vamos entender o que é o Grafana e como integrar ele com o Prometheus e criar Dashboards.

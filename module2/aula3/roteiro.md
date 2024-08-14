@@ -1,4 +1,4 @@
-# Aula 3: Docker Compose e Criando uma Rede Blockchain Privada com 4 Nodes Besu
+# Aula 2.3: Orquestrando Aplicações com Docker-Compose
 
 ## Introdução
 

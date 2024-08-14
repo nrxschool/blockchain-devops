@@ -1,4 +1,4 @@
-# AULA 2: Noção Histórica das Criptomoedas e Blockchain
+# Aula 1.2: História do Blockchain
 
 ## Introdução
 

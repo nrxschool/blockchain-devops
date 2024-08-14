@@ -1,4 +1,4 @@
-# Template de Estudo de Blockchains
+# Aula 1.1: Como funciona qualquer blockchain
 
 ## Introdução
 

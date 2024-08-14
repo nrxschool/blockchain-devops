@@ -40,27 +40,22 @@
 
 - Tópicos: Importância do monitoramento, métricas essenciais, logs e alertas
 
-**Aula 3.2: Arquitetura do Prometheus**
+**Aula 3.2: Integrando Prometheus com Besu**
 
 - Tópicos: História e Arquitetura do Prometheus
-- Projeto: Rodar o prometheus com Docker
+- Projeto: Rodar o prometheus com Docker, Configuração de jobs e targets, Configurar o Prometheus para monitorar um node blockchain
 
-**Aula 3.3: Integrando o Besu com Prometheus**
-
-- Tópicos: Configuração de jobs e targets
-- Projeto: Configurar o Prometheus para monitorar um node blockchain
-
-**Aula 3.4: Arquitetura do Grafana**
+**Aula 3.3: Integrando Besu + Prometheus + Grafana**
 
 - Tópicos: História e Arquitetura do Grafana
-- Projeto: rodar o Grafana com Docker
+- Projeto: rodar o Grafana com Docker, Integrando Grafana com Prometheus, Criar dashboard no Grafana
 
-**Aula 3.5: Integrando Besu + Prometheus + Grafana**
+**Aula 3.4: Gestão de logs**
 
-- Tópicos: Integrando Grafana com Prometheus
-- Projeto: Criar dashboard no Grafana
+- Tópicos: História e Arquitetura do XXX
+- Projeto: Coletar logs com o XXX
 
-**Aula 3.6: Explorador de Blocos**
+**Aula 3.5: Explorador de Blocos**
 
 - Tópicos: Configuração do Blockscout, integração com nodes Besu
 - Projeto: Configurar o Blockscout para monitorar um node Besu

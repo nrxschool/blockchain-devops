@@ -1,4 +1,4 @@
-## Criando uma Imagem Docker Simples
+# Aula 2.2: Comandos Básicos do Docker (+Docker hub)
 
 ### 2.1. Criar um Dockerfile para a Versão 1.0
 
@@ -138,6 +138,45 @@ docker run -d -p 8082:80 meu-nginx:3.0
 - **Acessar o Servidor Nginx**
 
 Abrir o navegador e acessar `http://localhost:8082`.
+
+### 2.8. Subindo imagens para o Docker Hub
+
+#### 2.8.1 Fazendo login
+
+```bash
+docker login
+```
+
+#### 2.8.2 Enviando uma imagens e suas versões
+
+- Vamos começar enviando a v1
+
+```bash
+docker tag meu-nginx:1.0 seu-usuario-dockerhub/meu-nginx:1.0
+docker push seu-usuario-dockerhub/meu-nginx:1.0
+```
+- Agora a v2
+
+```bash
+docker tag meu-nginx:2.0 seu-usuario-dockerhub/meu-nginx:2.0
+docker push seu-usuario-dockerhub/meu-nginx:2.0
+```
+
+- v3
+
+```bash
+docker tag meu-nginx:2.0 seu-usuario-dockerhub/meu-nginx:2.0
+docker push seu-usuario-dockerhub/meu-nginx:2.0
+```
+
+- A convenção usada para indicar a versão mais recente e estável de uma imagem é a `latest`.
+- Para enviar a versão `latest` de uma imagem Docker para o Docker Hub, você precisa primeiro taguear a imagem com a tag `latest` e, em seguida, realizar o push da imagem.
+
+```bash
+docker tag meu-nginx:3.0 seu-usuario-dockerhub/meu-nginx:latest
+docker push seu-usuario-dockerhub/meu-nginx:latest
+```
+
 
 ### Recapitulação
 

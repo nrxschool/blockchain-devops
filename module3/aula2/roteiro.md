@@ -43,6 +43,8 @@ Algumas métricas importantes que vamos focar são:
 - **Número do bloco atual** (`besu_blockchain_height`)
 - **Tamanho da blockchain em disco** (`besu_storage_size_bytes`)
 
+[Lista de todas as métricas do Besu](https://besu.hyperledger.org/23.7.3/public-networks/how-to/monitor/metrics#metrics-list)
+
 ### Executando Consultas com PromQL
 
 PromQL é a linguagem de consulta do Prometheus, e é aqui que a mágica acontece. Vamos executar alguns comandos para extrair informações valiosas:

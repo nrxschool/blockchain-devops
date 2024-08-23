@@ -1,0 +1,157 @@
+services:
+  # Serviços Hyperledger Besu
+  bootnode:
+    container_name: master
+    image: hyperledger/besu:latest
+    volumes:
+      - ./:/config
+    ports:
+      - 8545:8545
+    command: >
+      --config-file=/config/besu.toml --node-private-key-file=/config/key
+    networks:
+      - besu-network
+    expose:
+      - 8548
+      - 30303
+
+  besu2:
+    depends_on:
+      - bootnode
+    image: hyperledger/besu:latest
+    volumes:
+      - ./:/config
+    command: >
+      --bootnodes="enode://4e8b70b62d75b526fc284741e72a0b64579a48d70641201986ec25191a2d570827c65bc1de0bab80ad2124c47fe6219eda6424f7df8fed1208d73dc7b7e2a3e8@10.10.0.11:30303" --config-file=/config/besu.toml
+    networks:
+      - besu-network
+    expose:
+      - 8548
+      - 30303
+
+  besu3:
+    depends_on:
+      - bootnode
+    image: hyperledger/besu:latest
+    volumes:
+      - ./:/config
+    command: >
+      --bootnodes="enode://4e8b70b62d75b526fc284741e72a0b64579a48d70641201986ec25191a2d570827c65bc1de0bab80ad2124c47fe6219eda6424f7df8fed1208d73dc7b7e2a3e8@10.10.0.11:30303" --config-file=/config/besu.toml
+    networks:
+      - besu-network
+    expose:
+      - 8548
+      - 30303
+
+  besu4:
+    depends_on:
+      - bootnode
+    image: hyperledger/besu:latest
+    volumes:
+      - ./:/config
+    command: >
+      --bootnodes="enode://4e8b70b62d75b526fc284741e72a0b64579a48d70641201986ec25191a2d570827c65bc1de0bab80ad2124c47fe6219eda6424f7df8fed1208d73dc7b7e2a3e8@10.10.0.11:30303" --config-file=/config/besu.toml
+    networks:
+      - besu-network
+    expose:
+      - 8548
+      - 30303
+
+  # Serviços de observabilidade
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - bootnode
+    networks:
+      - besu-network
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    networks:
+      - besu-network
+
+  # Serviços de indexação e API
+  api:
+    image: web3labs/epirus-free-api:latest
+    environment:
+      - NODE_ENDPOINT=http://master:8545
+      - MONGO_CLIENT_URI=mongodb://mongodb:27017
+      - REINDEX_ENDPOINT=http://ingestion/reindex/
+      - MONGO_DB_NAME=epirus
+      - MONGO_CREATE_INDICES=true
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+      - mongodb
+    networks:
+      - besu-network
+
+  mongodb:
+    image: mongo:5.0.8
+    environment:
+      - COMPOSE_HTTP_TIMEOUT=900
+      - DOCKER_CLIENT_TIMEOUT=900
+    entrypoint: mongod --bind_ip "0.0.0.0"
+    networks:
+      - besu-network
+
+  redis:
+    image: redis
+    restart: unless-stopped
+    container_name: redis
+    networks:
+      - besu-network
+
+  web:
+    image: web3labs/epirus-free-web:latest
+    environment:
+      - API_URL=/api
+      - WS_API_URL=ws://localhost:8090
+      - DISPLAY_NETWORK_TAB=disabled
+    depends_on:
+      - api
+    networks:
+      - besu-network
+
+  ingestion:
+    image: web3labs/epirus-free-ingestion:latest
+    environment:
+      - NODE_ENDPOINT=http://master:8545
+      - MONGO_CLIENT_URI=mongodb://mongodb:27017
+      - MONGO_DB_NAME=epirus
+      - LIST_OF_METRICS_TO_CALCULATE_PER_MINUTE=hourly,daily,monthly,yearly
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - besu-network
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./5xx.html:/www/error_pages/5xx.html
+    ports:
+      - ${PORT:-80}:80
+    depends_on:
+      - api
+      - web
+    networks:
+      - besu-network
+
+networks:
+  besu-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "10.10.0.0/24"
+          gateway: "10.10.0.1"

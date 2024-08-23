@@ -10,7 +10,8 @@ services:
     command: >
       --config-file=/config/besu.toml --node-private-key-file=/config/key
     networks:
-      - besu-network
+        besu-network:
+          ipv4_address: 10.10.0.11
     expose:
       - 8548
       - 30303
@@ -24,7 +25,8 @@ services:
     command: >
       --bootnodes="enode://4e8b70b62d75b526fc284741e72a0b64579a48d70641201986ec25191a2d570827c65bc1de0bab80ad2124c47fe6219eda6424f7df8fed1208d73dc7b7e2a3e8@10.10.0.11:30303" --config-file=/config/besu.toml
     networks:
-      - besu-network
+      besu-network:
+        ipv4_address: 10.10.0.12
     expose:
       - 8548
       - 30303
@@ -38,7 +40,8 @@ services:
     command: >
       --bootnodes="enode://4e8b70b62d75b526fc284741e72a0b64579a48d70641201986ec25191a2d570827c65bc1de0bab80ad2124c47fe6219eda6424f7df8fed1208d73dc7b7e2a3e8@10.10.0.11:30303" --config-file=/config/besu.toml
     networks:
-      - besu-network
+      besu-network:
+        ipv4_address: 10.10.0.13
     expose:
       - 8548
       - 30303
@@ -52,7 +55,8 @@ services:
     command: >
       --bootnodes="enode://4e8b70b62d75b526fc284741e72a0b64579a48d70641201986ec25191a2d570827c65bc1de0bab80ad2124c47fe6219eda6424f7df8fed1208d73dc7b7e2a3e8@10.10.0.11:30303" --config-file=/config/besu.toml
     networks:
-      - besu-network
+      besu-network:
+        ipv4_address: 10.10.0.14
     expose:
       - 8548
       - 30303
@@ -82,7 +86,7 @@ services:
   api:
     image: web3labs/epirus-free-api:latest
     environment:
-      - NODE_ENDPOINT=http://master:8545
+      - NODE_ENDPOINT=http://10.10.0.11:8545
       - MONGO_CLIENT_URI=mongodb://mongodb:27017
       - REINDEX_ENDPOINT=http://ingestion/reindex/
       - MONGO_DB_NAME=epirus
@@ -115,7 +119,7 @@ services:
     image: web3labs/epirus-free-web:latest
     environment:
       - API_URL=/api
-      - WS_API_URL=ws://localhost:8090
+      - WS_API_URL=ws://api:8090
       - DISPLAY_NETWORK_TAB=disabled
     depends_on:
       - api
@@ -141,7 +145,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./5xx.html:/www/error_pages/5xx.html
     ports:
-      - ${PORT:-80}:80
+      - 80:80
     depends_on:
       - api
       - web
@@ -152,6 +156,7 @@ networks:
   besu-network:
     driver: bridge
     ipam:
+      driver: default
       config:
         - subnet: "10.10.0.0/24"
           gateway: "10.10.0.1"

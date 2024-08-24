@@ -82,73 +82,16 @@ services:
     networks:
       - besu-network
 
-  # Serviços de indexação e API
-  api:
-    image: web3labs/epirus-free-api:latest
-    environment:
-      - NODE_ENDPOINT=http://10.10.0.11:8545
-      - MONGO_CLIENT_URI=mongodb://mongodb:27017
-      - REINDEX_ENDPOINT=http://ingestion/reindex/
-      - MONGO_DB_NAME=epirus
-      - MONGO_CREATE_INDICES=true
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+  etherparty:
     depends_on:
-      - redis
-      - mongodb
-    networks:
-      - besu-network
-
-  mongodb:
-    image: mongo:5.0.8
-    environment:
-      - COMPOSE_HTTP_TIMEOUT=900
-      - DOCKER_CLIENT_TIMEOUT=900
-    entrypoint: mongod --bind_ip "0.0.0.0"
-    networks:
-      - besu-network
-
-  redis:
-    image: redis
-    restart: unless-stopped
-    container_name: redis
-    networks:
-      - besu-network
-
-  web:
-    image: web3labs/epirus-free-web:latest
-    environment:
-      - API_URL=/api
-      - WS_API_URL=ws://api:8090
-      - DISPLAY_NETWORK_TAB=disabled
-    depends_on:
-      - api
-    networks:
-      - besu-network
-
-  ingestion:
-    image: web3labs/epirus-free-ingestion:latest
-    environment:
-      - NODE_ENDPOINT=http://master:8545
-      - MONGO_CLIENT_URI=mongodb://mongodb:27017
-      - MONGO_DB_NAME=epirus
-      - LIST_OF_METRICS_TO_CALCULATE_PER_MINUTE=hourly,daily,monthly,yearly
-    depends_on:
-      - mongodb
-      - redis
-    networks:
-      - besu-network
-
-  nginx:
-    image: nginx:latest
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./5xx.html:/www/error_pages/5xx.html
+      - bootnode
+    build:
+      context: ./etherparty-explorer
+      dockerfile: Dockerfile
     ports:
-      - 80:80
-    depends_on:
-      - api
-      - web
+        - "8000:8000"
+    environment:
+      - ETH_NODE_URL=http://10.10.0.11:8545
     networks:
       - besu-network
 

@@ -6,6 +6,7 @@ services:
     volumes:
       - ./:/config
     ports:
+      - 8546:8546
       - 8545:8545
     command: >
       --config-file=/config/besu.toml --node-private-key-file=/config/key

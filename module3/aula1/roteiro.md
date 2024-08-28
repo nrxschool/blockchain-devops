@@ -1,4 +1,3 @@
-
 # Aula 3.1: Introdução ao Monitoramento
 
 ## Introdução

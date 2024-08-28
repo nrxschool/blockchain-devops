@@ -1,0 +1,104 @@
+services:
+  # Serviços Hyperledger Besu
+  bootnode:
+    container_name: master
+    image: hyperledger/besu:latest
+    volumes:
+      - ./:/config
+    ports:
+      - 8546:8546
+      - 8545:8545
+    command: >
+      --config-file=/config/besu.toml --node-private-key-file=/config/key
+    networks:
+      besu-network:
+        ipv4_address: 10.10.0.11
+    expose:
+      - 8548
+      - 30303
+
+  besu2:
+    depends_on:
+      - bootnode
+    image: hyperledger/besu:latest
+    volumes:
+      - ./:/config
+    command: >
+      --bootnodes="enode://4e8b70b62d75b526fc284741e72a0b64579a48d70641201986ec25191a2d570827c65bc1de0bab80ad2124c47fe6219eda6424f7df8fed1208d73dc7b7e2a3e8@10.10.0.11:30303" --config-file=/config/besu.toml
+    networks:
+      besu-network:
+        ipv4_address: 10.10.0.12
+    expose:
+      - 8548
+      - 30303
+
+  besu3:
+    depends_on:
+      - bootnode
+    image: hyperledger/besu:latest
+    volumes:
+      - ./:/config
+    command: >
+      --bootnodes="enode://4e8b70b62d75b526fc284741e72a0b64579a48d70641201986ec25191a2d570827c65bc1de0bab80ad2124c47fe6219eda6424f7df8fed1208d73dc7b7e2a3e8@10.10.0.11:30303" --config-file=/config/besu.toml
+    networks:
+      besu-network:
+        ipv4_address: 10.10.0.13
+    expose:
+      - 8548
+      - 30303
+
+  besu4:
+    depends_on:
+      - bootnode
+    image: hyperledger/besu:latest
+    volumes:
+      - ./:/config
+    command: >
+      --bootnodes="enode://4e8b70b62d75b526fc284741e72a0b64579a48d70641201986ec25191a2d570827c65bc1de0bab80ad2124c47fe6219eda6424f7df8fed1208d73dc7b7e2a3e8@10.10.0.11:30303" --config-file=/config/besu.toml
+    networks:
+      besu-network:
+        ipv4_address: 10.10.0.14
+    expose:
+      - 8548
+      - 30303
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - bootnode
+    networks:
+      - besu-network
+
+  influxdb:
+    image: influxdb:1.8
+    networks:
+      - besu-network
+    ports:
+      - "8086:8086"
+    environment:
+      - INFLUXDB_DB=k6
+
+  grafana:
+    depends_on:
+      - influxdb
+    image: grafana/grafana:latest
+    networks:
+      - besu-network
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+
+networks:
+  besu-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.10.0.0/24"
+          gateway: "10.10.0.1"

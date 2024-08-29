@@ -3,8 +3,16 @@ import { check, sleep } from "k6";
 import { Counter } from "k6/metrics";
 
 export let options = {
-  vus: 20000,
-  duration: "30s",
+  stages: [
+    // Aumenta gradualmente o número de usuários virtuais
+    { duration: "1m", target: 100 }, // 1 minuto com 100 usuários
+    { duration: "1m", target: 500 }, // 1 minuto com 500 usuários
+    { duration: "1m", target: 1000 }, // 1 minuto com 1000 usuários
+    { duration: "2m", target: 5000 }, // 1 minuto com 5000 usuários
+    { duration: "2m", target: 10000 }, // 1 minuto com 10000 usuários
+    { duration: "2m", target: 20000 }, // 1 minuto com 15000 usuários
+    { duration: "1m", target: 0 }, // Finaliza removendo todos os usuários
+  ],
 };
 
 const successfulRequests = new Counter("successful_requests");

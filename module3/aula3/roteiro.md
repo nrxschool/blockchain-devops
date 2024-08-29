@@ -74,35 +74,44 @@ Agora vamos criar um dashboard para monitorar as métricas mais importantes do n
 
 1. **Número de Blocos**
 
-   - No Grafana, vá até **Dashboards** > **Create** > **Add Panel**.
-   - No campo **Query**, use a seguinte consulta PromQL:
-     ```promql
-     besu_blockchain_height
-     ```
-   - Dê um nome ao gráfico, como “Número de Blocos”, e salve.
+- No Grafana, vá até **Dashboards** > **Create** > **Add Panel**.
+- No campo **Query**, use a seguinte consulta PromQL:
+
+```promql
+besu_blockchain_height
+```
+
+- Dê um nome ao gráfico, como “Número de Blocos”, e salve.
 
 2. **Número de Transações**
 
-   - Adicione um novo painel e insira a seguinte consulta:
-     ```promql
-     rate(besu_transactions_total[5m])
-     ```
-   - Nomeie o gráfico como “Número de Transações” e salve.
+- Adicione um novo painel e insira a seguinte consulta:
+
+```promql
+rate(besu_transactions_total[5m])
+```
+
+- Nomeie o gráfico como “Número de Transações” e salve.
 
 3. **Uso de CPU**
 
-   - Para o uso de CPU, insira a seguinte consulta PromQL:
-     ```promql
-     rate(node_cpu_seconds_total[5m])
-     ```
-   - Nomeie o gráfico como “Uso de CPU” e salve.
+- Para o uso de CPU, insira a seguinte consulta PromQL:
+
+```promql
+rate(node_cpu_seconds_total[5m])
+```
+
+- Nomeie o gráfico como “Uso de CPU” e salve.
 
 4. **Uso de Disco**
-   - Adicione um novo painel com a seguinte consulta:
-     ```promql
-     node_filesystem_size_bytes
-     ```
-   - Nomeie o gráfico como “Uso de Disco” e salve.
+
+- Adicione um novo painel com a seguinte consulta:
+
+```promql
+node_filesystem_size_bytes
+```
+
+- Nomeie o gráfico como “Uso de Disco” e salve.
 
 Com esses quatro gráficos, agora temos um dashboard básico que cobre os principais pontos de monitoramento do node Besu.
 

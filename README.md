@@ -34,7 +34,7 @@
 - Tópicos: Criar uma rede com 4 nodes usando PoW, PoS e PoA, usar load balancer e firewall
 - Projeto: Orquestrar 4 nodes + load balancer + firewall
 
-## Módulo 3: Monitoramento com Prometheus, Grafana e Blockscout
+## Módulo 3: Monitoramento com Prometheus, Alert Manager, Loki Grafana e BlockExplorer
 
 **Aula 3.1: Introdução ao Monitoramento**
 
@@ -60,7 +60,7 @@
 - Tópicos: O que são explorers
 - Projeto: Configurar e integrar o Etherparty para monitorar uma rede Besu
 
-## Módulo 4: Testes de Carga com K6 e Caliper
+## Módulo 4: Testes de Carga com K6
 
 **Aula 4.1: Introdução aos Testes de Carga**
 
@@ -92,17 +92,22 @@
 - Tópicos: Interpretação de resultados de testes de carga, identificação de gargalos
 - Projeto: Analisar os resultados dos testes de carga e identificar melhorias
 
-## Módulo 5: Computação em Nuvem
+## Módulo 5: Computação na Nuvem
 
 **Aula 5.1: Introdução à Computação em Nuvem**
 
 - Tópicos: História da computação em nuvem, principais provedores (AWS, GCP, Azure), criando máquinas virtuais.
-- Projeto: Criar uma conta em um provedor de nuvem
+- Projeto: Criar uma conta em um provedor de nuvem.
 
 **Aula 5.2: Implementação de Nodes Blockchain na Nuvem**
 
 - Tópicos: Configuração de rede hyperledger besu privada.
-- Projeto: Instanciar e configurar um node blockchain na nuvem
+- Projeto: Instanciar e configurar um node blockchain na nuvem.
+
+**Aula 5.3: Implementação do Ambiente na Nuvem**
+
+- Tópicos: Configuração de rede hyperledger besu privada.
+- Projeto: Instanciar e configurar um node blockchain na nuvem.
 
 ## Módulo 6: Ciclo de Desenvolvimento de Smart Contracts
 

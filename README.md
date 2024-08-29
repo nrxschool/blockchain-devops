@@ -82,15 +82,11 @@
 - Tópicos: Conceito e Script de teste
 - Projeto: Configurar e executar um Breakpoint Test para a aplicação, determinando a capacidade máxima antes do colapso
 
-**✅ Aula 4.5: Teste de Carga com Blockchain**
+**⏰ Aula 4.5: Teste de Carga com Blockchain**
 
 - Tópicos: Integrar nosso ambiente de teste com uma rede blockchain.
 - Projeto: Configurar e executar um Smoke Test para uma rede blockchain, verificar a resposta do sistema via Grafana.
 
-**⏰ Aula 4.6: Análise de Resultados de Testes de Carga**
-
-- Tópicos: Interpretação de resultados de testes de carga, identificação de gargalos
-- Projeto: Analisar os resultados dos testes de carga e identificar melhorias
 
 ## Módulo 5: Computação na Nuvem
 

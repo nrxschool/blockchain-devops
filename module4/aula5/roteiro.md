@@ -1,5 +1,7 @@
-ethereum_best_known_block_number{instance="10.10.0.11:8548"}
+**Instalar xk6**
 
-besu_blockchain_chain_head_transaction_count_counter_total{instance="10.10.0.11:8548"}
-
-ethereum_peer_count{instance="10.10.0.11:8548"}
+```bash
+docker run --rm -e GOOS=darwin -u "$(id -u):$(id -g)" -v "${PWD}:/xk6" \
+  grafana/xk6 build \
+  --with github.com/distribworks/xk6-ethereum
+```

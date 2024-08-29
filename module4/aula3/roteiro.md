@@ -24,8 +24,12 @@ import { check, sleep } from "k6";
 import { Counter } from "k6/metrics";
 
 export let options = {
-  vus: 20000,
-  duration: "30s",
+  stages: [
+    // STAGIO 1: 30 segundos com 10.000 Usuários Virtuais
+    { duration: "30s", target: 10000 },
+    // STAGIO 2: 30 segundos para remover os 10.000 Usuários Virtuais
+    { duration: "30s", target: 0 },
+  ],
 };
 
 const successfulRequests = new Counter("successful_requests");
@@ -45,7 +49,6 @@ export default function () {
   }
   sleep(1);
 }
-
 ```
 
 **Executando o Teste**
@@ -68,9 +71,7 @@ Este comando utiliza a imagem do k6 para executar o script de teste. As métrica
 
 ### Análise dos Resultados
 
-Agora que o teste foi executado, vamos analisar os resultados:
-
-Vamos olhar as métricas aqui
+Agora que o teste foi executado, vamos analisar os resultados, vamos olhar as métricas aqui.
 
 ### Conclusão
 

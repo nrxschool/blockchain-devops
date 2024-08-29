@@ -50,71 +50,44 @@
 - Tópicos: História e Arquitetura do Grafana
 - Projeto: rodar o Grafana com Docker, Integrando Grafana com Prometheus, Criar dashboard no Grafana
 
-**Aula 3.4: Logs**
+**Aula 3.4: Logs com Grafana Loki**
 
+- Tópicos: História e Arquitetura do Grafana Loki
+- Projeto: rodar o Loki com Docker
 
 **Aula 3.5: Explorador de Blocos**
 
-- Tópicos: Configuração do Blockscout, integração com nodes Besu
-- Projeto: Configurar o Blockscout para monitorar um node Besu
+- Tópicos: O que são explorers
+- Projeto: Configurar e integrar o Etherparty para monitorar uma rede Besu
 
 ## Módulo 4: Testes de Carga com K6 e Caliper
 
 **Aula 4.1: Introdução aos Testes de Carga**
 
-- Tópicos: Importância dos testes de carga, arquitetura do K6, instalando e configurando o K6.
-
-**Aula 4.1: Seu Primeiro Teste de Carga**
-
-- Tópicos: Criação de scripts de teste
-- Projeto: Configurar e executar um teste de carga usando K6 na aplicação CRUD
+- Tópicos: Importância dos testes de carga, arquitetura do K6, instalando e configurando o K6 e integrando ele com Grafana e InfluxDB.
+- Projeto: Configurar e executar o primeiro teste de carga usando K6.
 
 **Aula 4.2: Teste de Carga - Smoke Testing**
 
-- Tópicos: Conceito e Script do teste
-- Projeto: Configurar e executar um Smoke Test para a aplicação, verificando a resposta básica do sistema
-
-**Aula 4.3: Teste de Carga - Average Load Testing**
-
 - Tópicos: Conceito e Script de teste
-- Projeto: Configurar e executar um teste de carga média para a aplicação, analisando métricas de desempenho
+- Projeto: Configurar e executar um Smoke Testing para a aplicação, analisando como o sistema lida com sobrecarga
 
-**Aula 4.4: Teste de Carga - Stress Testing**
-
-- Tópicos: Conceito e Script de teste
-- Projeto: Configurar e executar um Stress Test para a aplicação, analisando como o sistema lida com sobrecarga
-
-**Aula 4.5: Teste de Carga - Soak Testing**
-
-- Tópicos: Conceito e Script de teste
-- Projeto: Configurar e executar um Soak Test para a aplicação, monitorando a estabilidade ao longo do tempo
-
-**Aula 4.6: Teste de Carga - Spike Testing**
+**Aula 4.3: Teste de Carga - Spike Testing**
 
 - Tópicos: Conceito e Script de teste
 - Projeto: Configurar e executar um Spike Test para a aplicação, observando a resposta a picos de carga
 
-**Aula 4.7: Teste de Carga - Breakpoint Testing**
+**Aula 4.4: Teste de Carga - Breakpoint Testing**
 
 - Tópicos: Conceito e Script de teste
 - Projeto: Configurar e executar um Breakpoint Test para a aplicação, determinando a capacidade máxima antes do colapso
 
-**Aula 4.8: Introdução ao Hyperledger Caliper**
+**Aula 4.5: Teste de Carga com Blockchain**
 
-- Tópicos: História e arquitetura do Hyperledger Caliper
-- Projeto: ---
+- Tópicos: Integrar nosso ambiente de teste com uma rede blockchain.
+- Projeto: Configurar e executar um Smoke Test para uma rede blockchain, verificar a resposta do sistema via Grafana.
 
-**Aula 4.9: Seu Primeiro Testes de Performance com Caliper**
-
-- Tópicos: Configuração de benchmarks para um teste simples
-- Projeto: Configurar e executar testes de performance contra node Besu
-
-**Aula 4.10: Stress Testes com Caliper**
-
-- Tópicos: Script de teste
-- Projeto: Configurar e executar testes de stress contra node Besu
-
-**Aula 4.11: Análise de Resultados de Testes de Carga**
+**Aula 4.6: Análise de Resultados de Testes de Carga**
 
 - Tópicos: Interpretação de resultados de testes de carga, identificação de gargalos
 - Projeto: Analisar os resultados dos testes de carga e identificar melhorias

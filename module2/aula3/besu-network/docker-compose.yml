@@ -39,7 +39,6 @@ services:
       besu-network:
         ipv4_address: 10.10.0.12
 
-
   besu3:
     depends_on:
       - bootnode

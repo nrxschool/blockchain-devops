@@ -1,0 +1,6 @@
+[submodule "module6/aula1/counter/lib/forge-std"]
+	path = module6/aula1/counter/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "module6/aula3/vendor-machine/lib/forge-std"]
+	path = module6/aula3/vendor-machine/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std

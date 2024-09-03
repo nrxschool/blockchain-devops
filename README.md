@@ -87,7 +87,6 @@
 - Tópicos: Integrar nosso ambiente de teste com uma rede blockchain.
 - Projeto: Configurar e executar um Smoke Test para uma rede blockchain, verificar a resposta do sistema via Grafana.
 
-
 ## Módulo 5: Computação na Nuvem
 
 **⏰ Aula 5.1: Introdução à Computação em Nuvem**
@@ -121,17 +120,4 @@
 - Tópicos: Conceitos de TDD
 - Projeto: Escrever os testes para a Vending Machine
 
-**⏰ Aula 6.4: Escrevendo a Vending Machine**
-
-- Tópicos: Escrevendo um contrato de Vending Machine
-- Projeto: Validar os testes para a Vending Machine
-
-**⏰ Aula 6.5: Auditando nossa Vending Machine**
-
-- Tópicos: Conceitos de Auditoria e Análise estática de código
-- Projeto: Encontrar falhas de segurança no smartcontract
-
-**⏰ Aula 6.6: Fazendo deploy da Vending Machine**
-
-- Tópicos: Finalizar ciclo de vida de um smartcontract
-- Projeto: Fazer deploy usando nosso node
+**⏰ Aula 6.4: Encerramento**

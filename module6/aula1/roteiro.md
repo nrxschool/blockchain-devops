@@ -75,3 +75,17 @@ Um passo atrás aqui. Pra fazer um deploy de smartcontract precisamos de uma blo
 Por fim, vamos aprender a interagir com o smartcontract via o frontend.
 
 Tour pelo frontend...
+
+## Ciclo de desenvolvimento de contratos
+
+O processo é o mais importante quando estamos desenvolvendo software.
+
+1. Entender a regras de negócio
+2. Desenvolver o contrato
+3. Testar
+4. Auditar
+5. Deploy local
+6. Debug via front
+7. Deploy Testnet
+8. Debug via front
+9. Deploy Maintnet

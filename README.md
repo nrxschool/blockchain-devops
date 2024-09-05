@@ -106,16 +106,16 @@
 
 ## Módulo 6: Ciclo de Desenvolvimento de Smart Contracts
 
-**⏰ Aula 6.1: Introdução ao Desenvolvimento de Smartcontracts EVM**
+**✅ Aula 6.1: Introdução ao Desenvolvimento de Smartcontracts EVM**
 
 - Tópicos: História e Arquitetura do mundo EVM, instalar e configurar Foundry e ScaffoldETH2
 
-**⏰ Aula 6.2: Ciclo de vida dos Smartcontract**
+**✅ Aula 6.2: Ciclo de vida dos Smartcontract**
 
 - Tópicos: Planejamento, Desenvolvimento, Testes, Auditória, Deploy Testnet, Deploy Mainnet, Escrever Token ERC20
 - Projeto: Criar Token em solidity e fazer deploy no nosso Node
 
-**⏰ Aula 6.3: Implementando uma Vending Machine TDD**
+**✅ Aula 6.3: Implementando uma Vending Machine TDD**
 
 - Tópicos: Conceitos de TDD
 - Projeto: Escrever os testes para a Vending Machine

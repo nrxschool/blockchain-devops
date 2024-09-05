@@ -1,14 +1,30 @@
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.13;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.18;
 
-contract Counter {
-    uint256 public number;
+import {Token} from "./Token.sol";
 
-    function setNumber(uint256 newNumber) public {
-        number = newNumber;
+error InsuficientAmount();
+
+contract VendorMachine {
+    uint256 public tokensPerEth;
+
+    Token token;
+
+    event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
+
+    constructor(uint256 price, address _token) {
+        tokensPerEth = price;
+        token = Token(_token);
     }
 
-    function increment() public {
-        number++;
+    function buyTokens() external payable returns (bool) {
+        if (msg.value >= tokensPerEth) {
+            uint256 amount = ((msg.value * 1 ether) / tokensPerEth);
+            token.transfer(msg.sender, amount);
+
+            return true;
+        } else {
+            revert InsuficientAmount();
+        }
     }
 }

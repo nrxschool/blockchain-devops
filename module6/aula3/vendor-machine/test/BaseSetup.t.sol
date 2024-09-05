@@ -4,6 +4,8 @@ pragma solidity ^0.8.18;
 import {Token} from "../src/Token.sol";
 import {Utils} from "./Utils.t.sol";
 
+
+
 contract BaseSetup is Utils {
     Token token;
 
@@ -14,7 +16,7 @@ contract BaseSetup is Utils {
     address zero;
 
     function setUp() public virtual {
-        _users = createUsers(2);
+        _users = createUsers(3);
 
         controller = _users[0];
         alice = _users[1];
@@ -27,7 +29,7 @@ contract BaseSetup is Utils {
         vm.label(zero, "ZERO");
 
         vm.startPrank(controller);
-        token = new Token();
+        token = new Token("Floripa coin", "FLN", 1000 * 10e18);
         vm.stopPrank();
     }
 

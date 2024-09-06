@@ -2,3 +2,4 @@ blockchain/
 node_modules/
 logs/
 .DS_Store
+positions.yaml

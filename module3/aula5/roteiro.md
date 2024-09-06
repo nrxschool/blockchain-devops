@@ -19,7 +19,11 @@ Exploradores de blocos, ou **block explorers**, são ferramentas essenciais em q
 
 Ter um explorer é essencial para desenvolvedores e usuários, pois fornece transparência, auditoria e fácil acessibilidade às informações da blockchain. Ele é, muitas vezes, a porta de entrada para interagir com uma rede blockchain de maneira não técnica.
 
-É importante você aprender que existem várias soluções para explorers, eu super aconselho que você tente rodar o Blockscout, Chainlens e EthVM para ver como essas soluções funcionam. Com docker tudo fica bem fácil de executar.
+É importante você aprender que existem várias soluções para explorers, eu super aconselho que você tente rodar as soluções abaixo para ver como elas funcionam:
+
+- Blockscout
+- Chainlens
+- EthVM
 
 Porém, para o objetivo da aula vou usar um explorer light chamado **Etherparty** para monitorar nossa rede Besu. Como o Etherparty tem menos funcionalidades logo mais fácil de instalar, configurar e gereniar do que os outros exploradores que citei antes, por isso escolhi ele.
 

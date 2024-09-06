@@ -105,4 +105,4 @@
 
 **✅ Aula 6.4: Encerramento**
 
-- Tópico
+- Tópicos: Recapitulação do curso

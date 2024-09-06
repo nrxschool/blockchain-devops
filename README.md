@@ -87,24 +87,7 @@
 - Tópicos: Integrar nosso ambiente de teste com uma rede blockchain.
 - Projeto: Configurar e executar um Smoke Test para uma rede blockchain, verificar a resposta do sistema via Grafana.
 
-## Módulo 5: Computação na Nuvem
-
-**⏰ Aula 5.1: Introdução à Computação em Nuvem**
-
-- Tópicos: História da computação em nuvem, principais provedores (AWS, GCP, Azure), criando máquinas virtuais.
-- Projeto: Criar uma conta em um provedor de nuvem.
-
-**⏰ Aula 5.2: Implementação de Nodes Blockchain na Nuvem**
-
-- Tópicos: Configuração de rede hyperledger besu privada.
-- Projeto: Instanciar e configurar um node blockchain na nuvem.
-
-**⏰ Aula 5.3: Implementação do Ambiente na Nuvem**
-
-- Tópicos: Configuração de rede hyperledger besu privada.
-- Projeto: Instanciar e configurar um node blockchain na nuvem.
-
-## Módulo 6: Ciclo de Desenvolvimento de Smart Contracts
+## Módulo 5: Ciclo de Desenvolvimento de Smart Contracts
 
 **✅ Aula 6.1: Introdução ao Desenvolvimento de Smartcontracts EVM**
 
@@ -120,4 +103,6 @@
 - Tópicos: Conceitos de TDD
 - Projeto: Escrever os testes para a Vending Machine
 
-**⏰ Aula 6.4: Encerramento**
+**✅ Aula 6.4: Encerramento**
+
+- Tópico

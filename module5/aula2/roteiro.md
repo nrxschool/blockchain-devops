@@ -1,9 +1,14 @@
-**⏰ Aula 5.2: Implementação de Nodes Blockchain na Nuvem**
+# Aula 6.1: Introdução ao Desenvolvimento de Smartcontracts EVM
 
-- Tópicos: Configuração de rede hyperledger besu privada.
-- Projeto: Instanciar e configurar um node blockchain na nuvem.
+## Introdução
 
-**⏰ Aula 5.3: Implementação do Ambiente na Nuvem**
+Vamos explorar o ciclo de desenvolvimento de Smartcontracts
 
-- Tópicos: Configuração de rede hyperledger besu privada.
-- Projeto: Instanciar e configurar um node blockchain na nuvem.
+## Life Cycle
+
+1. Escrever o contrato ERC20
+2. Escrever testes
+3. Slither para segurança
+4. Escrever script de Deploy
+5. Deploy do contrato
+6. Interagir com o contrato

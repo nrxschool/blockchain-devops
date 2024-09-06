@@ -50,7 +50,7 @@
 - Tópicos: História e Arquitetura do Grafana
 - Projeto: rodar o Grafana com Docker, Integrando Grafana com Prometheus, Criar dashboard no Grafana
 
-**⏰ Aula 3.4: Logs com Grafana Loki**
+**✅ Aula 3.4: Logs com Grafana Loki**
 
 - Tópicos: História e Arquitetura do Grafana Loki
 - Projeto: rodar o Loki com Docker

@@ -1,9 +1,8 @@
+# Usar a imagem base do Nginx
 FROM nginx:latest
 
-# # copiar arquivo de configuração
-# COPY nginx.conf /etc/nginx/nginx.conf
-
-COPY index.html /usr/share/nginx/html/index.html
+# Copiar o conteúdo do diretório atual para o diretório de trabalho do container
+COPY . /usr/share/nginx/html
 
 # Expor a porta 80 para acesso HTTP
 EXPOSE 80

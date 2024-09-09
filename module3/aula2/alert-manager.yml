@@ -17,7 +17,7 @@ route:
 receivers:
   - name: Telegram
     telegram_configs:
-      - bot_token: "6763896640:AAHR6VtaFGXSH7d5UITR3dWmeVx_01mW_gQ"
+      - bot_token: "TELEGRAM_TOKEN"
         api_url: "https://api.telegram.org"
         chat_id: -1002213439700
         parse_mode: "Markdown"
@@ -25,5 +25,5 @@ receivers:
 
   - name: Discord
     discord_configs:
-      - webhook_url: "https://discord.com/api/webhooks/1253362740827787334/SgNSDC3EN9q6yPxJH6qW88XoW3f2YTNbnH8C1j1x8eTy6CDB_MbAuQTeT5tZ3S0sG57y"
+      - webhook_url: "DISCORD_WEBHOOK_URL"
         message: "{{ range .Alerts }}{{ .Annotations.summary }}\n{{ end }}"

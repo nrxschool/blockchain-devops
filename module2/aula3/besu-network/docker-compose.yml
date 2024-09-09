@@ -1,11 +1,8 @@
 services:
   bootnode:
     container_name: master
-    environment:
-      - LOG4J_CONFIGURATION_FILE=/config/log-config.xml
     image: hyperledger/besu:latest
     volumes:
-      - ./logs:/var/log/besu
       - ./:/config
     ports:
       - 8545:8545

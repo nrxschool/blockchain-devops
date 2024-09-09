@@ -197,7 +197,6 @@ Crie um arquivo chamado `genesis.json` com o seguinte conteúdo:
     }
   }
 }
-
 ```
 
 ## Subindo a Rede

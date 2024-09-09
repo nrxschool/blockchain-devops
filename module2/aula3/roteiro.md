@@ -248,6 +248,14 @@ metrics-category = [
 ]
 ```
 
+### 2.5. Arquivo `key`
+
+Crie um arquivo chamado `key` com o seguinte conteúdo:
+
+```bash
+0x23584ca918509b830adf2881ca2b2418cd93efa885b2b0064bc88095952cc4e0
+```
+
 ## Subindo a Rede
 
 ### 3.1. Construindo e Iniciando os Containers

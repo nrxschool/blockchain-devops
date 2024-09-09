@@ -165,8 +165,8 @@ docker push seu-usuario-dockerhub/meu-nginx:2.0
 - v3
 
 ```bash
-docker tag meu-nginx:2.0 seu-usuario-dockerhub/meu-nginx:2.0
-docker push seu-usuario-dockerhub/meu-nginx:2.0
+docker tag meu-nginx:2.0 seu-usuario-dockerhub/meu-nginx:3.0
+docker push seu-usuario-dockerhub/meu-nginx:3.0
 ```
 
 - A convenção usada para indicar a versão mais recente e estável de uma imagem é a `latest`.

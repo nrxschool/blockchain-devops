@@ -79,7 +79,7 @@ cd besu-network
 Crie um arquivo chamado `docker-compose.yml` com o seguinte conteúdo:
 
 ```yaml
-version: '3.7'
+version: "3.7"
 
 services:
   bootnode:
@@ -197,6 +197,55 @@ Crie um arquivo chamado `genesis.json` com o seguinte conteúdo:
     }
   }
 }
+```
+
+### 2.4. Arquivo `besu.toml`
+
+Crie um arquivo chamado `beseu.toml` com o seguinte conteúdo:
+
+```toml
+genesis-file = "/config/dev.json"
+
+# P2P CONFIG
+discovery-enabled = true
+p2p-enabled = true
+p2p-host = "0.0.0.0"
+p2p-port = "30303"
+
+miner-enabled = true
+miner-coinbase = "0xfe3b557e8fb62b89f4916b721be55ceb828dbd73"
+host-allowlist = ["*"]
+
+## HTTP RPC API
+rpc-http-enabled = true
+rpc-http-cors-origins = ["*"]
+rpc-http-host = "0.0.0.0"
+rpc-http-port = 8545
+rpc-http-api = ["ADMIN", "ETH", "NET", "WEB3", "DEBUG", "TRACE", "TXPOOL"]
+
+## SOCKET RPC API
+rpc-ws-enabled = true
+rpc-ws-host = "0.0.0.0"
+rpc-ws-port = 8546
+rpc-ws-api = ["ETH", "NET", "WEB3"]
+
+## GRAPHQL API
+graphql-http-enabled = true
+graphql-http-cors-origins = ["*"]
+graphql-http-host = "0.0.0.0"
+graphql-http-port = 8547
+
+## METRICS API
+metrics-enabled = true
+metrics-host = "0.0.0.0"
+metrics-port = 8548
+metrics-category = [
+    "BLOCKCHAIN",
+    "PEERS",
+    "PROCESS",
+    "ETHEREUM",
+    "TRANSACTION_POOL",
+]
 ```
 
 ## Subindo a Rede

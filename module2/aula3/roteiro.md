@@ -79,7 +79,94 @@ cd besu-network
 Crie um arquivo chamado `docker-compose.yml` com o seguinte conteúdo:
 
 ```yaml
+version: '3.7'
 
+services:
+  bootnode:
+    container_name: master
+    image: hyperledger/besu:latest
+    volumes:
+      - ./:/config
+      - ./besu1:/blockchain
+    ports:
+      - 8545:8545
+      - 8546:8546
+      - 8547:8547
+      - 8548:8548
+      - 30303:30303
+    command: >
+      --config-file=/config/besu.toml
+      --node-private-key-file=/config/key
+    networks:
+      besu-network:
+        ipv4_address: 10.10.0.11
+
+  besu2:
+    depends_on:
+      - bootnode
+    image: hyperledger/besu:latest
+    volumes:
+      - ./:/config
+      - ./besu2:/blockchain
+    ports:
+      - 9545:8545
+      - 9546:8546
+      - 9547:8547
+      - 9548:8548
+    command: >
+      --bootnodes="enode://4e8b70b62d75b526fc284741e72a0b64579a48d70641201986ec25191a2d570827c65bc1de0bab80ad2124c47fe6219eda6424f7df8fed1208d73dc7b7e2a3e8@10.10.0.11:30303"
+      --config-file=/config/besu.toml
+    networks:
+      besu-network:
+        ipv4_address: 10.10.0.12
+
+  besu3:
+    depends_on:
+      - bootnode
+    image: hyperledger/besu:latest
+    volumes:
+      - ./:/config
+      - ./besu3:/blockchain
+    ports:
+      - 10545:8545
+      - 10546:8546
+      - 10547:8547
+      - 10548:8548
+    command: >
+      --bootnodes="enode://4e8b70b62d75b526fc284741e72a0b64579a48d70641201986ec25191a2d570827c65bc1de0bab80ad2124c47fe6219eda6424f7df8fed1208d73dc7b7e2a3e8@10.10.0.11:30303"
+      --config-file=/config/besu.toml
+    networks:
+      besu-network:
+        ipv4_address: 10.10.0.13
+
+  besu4:
+    depends_on:
+      - bootnode
+    image: hyperledger/besu:latest
+    volumes:
+      - ./:/config
+      - ./besu4:/blockchain
+    ports:
+      - 11545:8545
+      - 11546:8546
+      - 11547:8547
+      - 11548:8548
+    command: >
+      --bootnodes="enode://4e8b70b62d75b526fc284741e72a0b64579a48d70641201986ec25191a2d570827c65bc1de0bab80ad2124c47fe6219eda6424f7df8fed1208d73dc7b7e2a3e8@10.10.0.11:30303"
+      --config-file=/config/besu.toml
+    networks:
+      besu-network:
+        ipv4_address: 10.10.0.14
+
+networks:
+  besu-network:
+    name: drex
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.10.0.0/24"
+          gateway: "10.10.0.1"
 ```
 
 ### 2.3. Arquivo `genesis.json`
@@ -87,6 +174,29 @@ Crie um arquivo chamado `docker-compose.yml` com o seguinte conteúdo:
 Crie um arquivo chamado `genesis.json` com o seguinte conteúdo:
 
 ```json
+{
+  "config": {
+    "chainId": 31337,
+    "londonBlock": 0,
+    "contractSizeLimit": 2147483647,
+    "ethash": {
+      "fixeddifficulty": 100
+    }
+  },
+  "nonce": "0x42",
+  "timestamp": "0x0",
+  "extraData": "0x11bbe8db4e347b4e8c937c1c8370e4b5ed33adb3db69cbdb7a38e1e50b1b82fa",
+  "gasLimit": "0x1000000",
+  "difficulty": "0x10000",
+  "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "coinbase": "0x0000000000000000000000000000000000000000",
+  "alloc": {
+    "f39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+      "privateKey": "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
+      "balance": "90000000000000000000000"
+    }
+  }
+}
 
 ```
 

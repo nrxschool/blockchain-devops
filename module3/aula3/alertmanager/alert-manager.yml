@@ -14,5 +14,5 @@ route:
 receivers:
   - name: Discord
     discord_configs:
-      - webhook_url: "https://discord.com/api/webhooks/1283072528377577562/8anX9XQlqwjgzDNrv-3aZWX8kF9x9iFZ3jk7Oc3kUME9YKBAyU5A_GhqZghqNsc28Nk-"
+      - webhook_url: "https://discord.com/api/webhooks/1283129693154971788/oVn6BKAj88rPGGEK034csoO5ynxFZ7egIr9dmBIPXMvCeD8Nj61OSVaISFEvOJT3cDNA"
         message: "{{ range .Alerts }}{{ .Annotations.summary }}\n{{ end }}"

@@ -1,4 +1,4 @@
-# Aula 3.2: Integrando Besu, Prometheus e AlertManager com Discord
+# Aula 3.3: Integrando Besu, Prometheus e AlertManager com Discord
 
 ## 1. Introdução ao AlertManager e sua Importância
 

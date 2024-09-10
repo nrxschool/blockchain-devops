@@ -22,6 +22,3 @@ metrics-category = [
     "ETHEREUM",
     "TRANSACTION_POOL",
 ]
-
-# BLOCKCHAIN DATA PATH 
-data-path = "./blockchain/"

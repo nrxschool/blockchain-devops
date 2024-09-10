@@ -6,7 +6,7 @@ services:
     image: hyperledger/besu:latest
     volumes:
       - ./logs:/var/log/besu
-      - ./:/config
+      - ./besu:/config
     ports:
       - 8545:8545
     command: >
@@ -23,7 +23,7 @@ services:
       - bootnode
     image: hyperledger/besu:latest
     volumes:
-      - ./:/config
+      - ./besu:/config
     command: >
       --bootnodes="enode://4e8b70b62d75b526fc284741e72a0b64579a48d70641201986ec25191a2d570827c65bc1de0bab80ad2124c47fe6219eda6424f7df8fed1208d73dc7b7e2a3e8@10.10.0.11:30303" --config-file=/config/besu.toml
     networks:
@@ -38,7 +38,7 @@ services:
       - bootnode
     image: hyperledger/besu:latest
     volumes:
-      - ./:/config
+      - ./besu:/config
     command: >
       --bootnodes="enode://4e8b70b62d75b526fc284741e72a0b64579a48d70641201986ec25191a2d570827c65bc1de0bab80ad2124c47fe6219eda6424f7df8fed1208d73dc7b7e2a3e8@10.10.0.11:30303" --config-file=/config/besu.toml
     networks:
@@ -53,7 +53,7 @@ services:
       - bootnode
     image: hyperledger/besu:latest
     volumes:
-      - ./:/config
+      - ./besu:/config
     command: >
       --bootnodes="enode://4e8b70b62d75b526fc284741e72a0b64579a48d70641201986ec25191a2d570827c65bc1de0bab80ad2124c47fe6219eda6424f7df8fed1208d73dc7b7e2a3e8@10.10.0.11:30303" --config-file=/config/besu.toml
     networks:

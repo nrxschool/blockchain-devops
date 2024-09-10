@@ -4,15 +4,15 @@ services:
     container_name: master
     image: hyperledger/besu:latest
     volumes:
-      - ./:/config
+      - ./besu:/config
     ports:
       - 8546:8546
       - 8545:8545
     command: >
       --config-file=/config/besu.toml --node-private-key-file=/config/key
     networks:
-        besu-network:
-          ipv4_address: 10.10.0.11
+      besu-network:
+        ipv4_address: 10.10.0.11
     expose:
       - 8548
       - 30303
@@ -22,7 +22,7 @@ services:
       - bootnode
     image: hyperledger/besu:latest
     volumes:
-      - ./:/config
+      - ./besu:/config
     command: >
       --bootnodes="enode://4e8b70b62d75b526fc284741e72a0b64579a48d70641201986ec25191a2d570827c65bc1de0bab80ad2124c47fe6219eda6424f7df8fed1208d73dc7b7e2a3e8@10.10.0.11:30303" --config-file=/config/besu.toml
     networks:
@@ -37,7 +37,7 @@ services:
       - bootnode
     image: hyperledger/besu:latest
     volumes:
-      - ./:/config
+      - ./besu:/config
     command: >
       --bootnodes="enode://4e8b70b62d75b526fc284741e72a0b64579a48d70641201986ec25191a2d570827c65bc1de0bab80ad2124c47fe6219eda6424f7df8fed1208d73dc7b7e2a3e8@10.10.0.11:30303" --config-file=/config/besu.toml
     networks:
@@ -52,7 +52,7 @@ services:
       - bootnode
     image: hyperledger/besu:latest
     volumes:
-      - ./:/config
+      - ./besu:/config
     command: >
       --bootnodes="enode://4e8b70b62d75b526fc284741e72a0b64579a48d70641201986ec25191a2d570827c65bc1de0bab80ad2124c47fe6219eda6424f7df8fed1208d73dc7b7e2a3e8@10.10.0.11:30303" --config-file=/config/besu.toml
     networks:
@@ -66,7 +66,7 @@ services:
   prometheus:
     image: prom/prometheus
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus:/etc/prometheus
     ports:
       - "9090:9090"
     depends_on:
@@ -90,7 +90,7 @@ services:
       context: ./etherparty-explorer
       dockerfile: Dockerfile
     ports:
-        - "8000:8000"
+      - "8000:8000"
     environment:
       - ETH_NODE_URL=http://10.10.0.11:8545
     networks:

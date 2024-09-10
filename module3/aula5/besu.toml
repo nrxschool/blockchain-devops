@@ -1,4 +1,6 @@
+# BLOCKCHAIN DATA PATH 
 genesis-file = "/config/dev.json"
+logging="INFO"
 
 # P2P CONFIG
 discovery-enabled = true
@@ -41,5 +43,3 @@ metrics-category = [
     "TRANSACTION_POOL",
 ]
 
-# BLOCKCHAIN DATA PATH 
-data-path = "./blockchain/"

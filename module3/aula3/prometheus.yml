@@ -1,12 +1,16 @@
 global:
   scrape_interval: 5s
 
+rule_files:
+  - "alert-rules.yml"
+
 scrape_configs:
   - job_name: "besu_node"
+    scrape_interval: 2s
     static_configs:
-      - targets: [
-        "10.10.0.11:8548",
-        "10.10.0.12:8548",
-        "10.10.0.13:8548",
-        "10.10.0.14:8548"
-      ]
+      - targets: ["besu:8548"]
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ["alertmanager:9093"]

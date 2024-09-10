@@ -3,7 +3,6 @@ services:
     image: hyperledger/besu:latest
     volumes:
       - ./:/config
-      - ./blockchain:/opt/besu/blockchain
     ports:
       - 8545:8545
       - 8546:8546
@@ -32,5 +31,3 @@ services:
     depends_on:
       - prometheus
 
-  # discord-alertmanager:
-  #   image: 

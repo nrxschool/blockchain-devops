@@ -1,151 +1,107 @@
-# Aula 3.3: Integrando Besu + Prometheus + Grafana
+# Aula 3.2: Integrando Besu com Prometheus
 
 ### Introdução
 
-Se você já esteve envolvido com DevOps, monitoramento de sistemas ou blockchain, provavelmente já ouviu falar do Grafana. Hoje, vamos explorar essa poderosa ferramenta de visualização de dados que, quando integrada ao Prometheus, leva o monitoramento a um novo patamar.
+Antes de colocarmos a mão na gracha, um pouco de contexto.
 
-### História do Grafana
+### História do Prometheus
 
-O Grafana foi lançado em 2014 por Torkel Ödegaard como uma solução open-source para visualização de dados. Inicialmente, ele se concentrou em oferecer uma interface simples e intuitiva para monitorar métricas coletadas de diferentes fontes de dados. Em pouco tempo, o Grafana cresceu, tornando-se a escolha número um para dashboards interativos e alertas. A grande sacada? Sua capacidade de se integrar com praticamente qualquer fonte de dados, desde bancos de dados relacionais até serviços de monitoramento como o Prometheus.
+Prometheus foi inicialmente desenvolvido pela SoundCloud em 2012, em um momento em que a empresa enfrentava desafios significativos com o monitoramento de seus serviços. Na época, as soluções existentes não atendiam às necessidades de um ambiente de microservices dinâmico, então, eles decidiram criar uma nova ferramenta do zero.
 
-Com sua interface amigável e uma vasta gama de plugins, o Grafana é agora uma das ferramentas mais usadas para criar painéis ricos e informativos em qualquer infraestrutura.
+Essa necessidade deu origem a um sistema de monitoramento que não só coletava métricas de forma eficiente, mas também permitia consultas poderosas para gerar insights acionáveis. Em 2015, o Prometheus foi lançado como um projeto open-source e, desde então, tem sido adotado amplamente pela comunidade. Sua popularidade se deve à sua flexibilidade, integração fácil com diversas tecnologias, e à poderosa linguagem de consulta PromQL.
 
-### Arquitetura do Grafana
+### Arquitetura do Prometheus
 
-[docs](https://grafana.com/docs/grafana/latest/fundamentals/intro-to-prometheus/#prometheus-as-deployment)
+Agora que entendemos a história, vamos explorar a arquitetura do Prometheus. Imagine que você está montando uma rede blockchain. Seu node precisa ser monitorado em tempo real para garantir que esteja sempre funcionando de forma otimizada. O Prometheus entra aqui coletando e armazena métricas.
 
-A arquitetura do Grafana se baseia em três elementos principais:
+[diagrama](https://prometheus.io/docs/introduction/overview/#architecture)
 
-1. **Backends de dados**: O Grafana não coleta dados por si só. Ele utiliza backends de dados, como o Prometheus, para buscar as métricas.
-2. **Dashboards**: Esses são painéis interativos onde você pode visualizar seus dados, criar gráficos e configurar alertas.
-3. **Alertas**: O Grafana também permite configurar alertas baseados nas métricas monitoradas, notificando você quando algo crítico acontece.
+O Prometheus se baseia em um modelo de pull, onde ele busca as métricas diretamente dos nodes que estão sendo monitorados. Esse modelo é diferente de muitas outras soluções que utilizam push, onde os nodes enviam dados para o servidor. A vantagem do modelo de pull é que ele oferece mais controle sobre o que está sendo monitorado e permite uma escalabilidade muito maior.
 
-Agora, vamos integrar o Grafana ao nosso ambiente e criar um dashboard para monitorar as métricas do nosso node Besu.
+Agora, vamos colocar isso em prática. Vamos rodar o Prometheus usando Docker e conectar nosso node Besu a ele.
 
----
+### Overview no nosso Docker compose
 
-**Parte 2: Integrando Grafana com Prometheus e Besu**
-
----
-
-### Preparando o Ambiente
-
-Antes de mais nada, precisamos configurar o Grafana no nosso ambiente Docker. Vamos adicionar um novo serviço ao arquivo `docker-compose.yml` para rodar o Grafana:
-
-```yaml
-services:
-  grafana:
-    image: grafana/grafana
-    ports:
-      - "3000:3000"
-    depends_on:
-      - prometheus
-```
-
-Com isso, nosso Grafana estará disponível em `http://localhost:3000`. Agora, podemos rodar o seguinte comando para subir todos os serviços:
+Agora que entendemos o nosso [compose](./docker-compose.yml), vamos rodar tudo:
 
 ```bash
 docker-compose up -d
 ```
 
-Uma vez que tudo estiver rodando, vamos configurar a integração entre o Grafana e o Prometheus.
+Uma vez que o Prometheus estiver rodando, você pode acessá-lo no navegador em `http://localhost:9090`. Aqui, você verá a interface do Prometheus, onde vamos explorar as métricas que estamos coletando.
 
-### Conectando Grafana ao Prometheus
+Vamos passar o olho no nosso [arquivo](./prometheus.yml) de configuração do prometheus.
+Essa configuração instrui o Prometheus a buscar métricas do nosso node Besu a cada 5 segundos.
 
-1. Acesse o Grafana em `http://localhost:3000`.
-2. Entre com as credenciais padrão: usuário "admin" e senha "admin".
-3. Vá até **Configuration** > **Data Sources**.
-4. Selecione **Add Data Source** e escolha **Prometheus**.
-5. No campo **URL**, insira: `http://prometheus:9090` e salve.
+### Explorando as Métricas
 
-Agora que o Grafana está conectado ao Prometheus, podemos começar a criar nosso dashboard.
+Agora vamos acessar as métricas do Besu. No seu navegador, vá até `http://localhost:8548/metrics`. Aqui, você verá uma série de dados detalhados sobre o funcionamento do node.
 
----
+Algumas métricas importantes que vamos focar são:
 
-**Parte 3: Criando um Dashboard Simples**
+- **Tempo de bloco** (`besu_block_duration_seconds_sum`)
+- **Número do bloco atual** (`besu_blockchain_height`)
+- **Tamanho da blockchain em disco** (`besu_storage_size_bytes`)
 
----
+[Lista de todas as métricas do Besu](https://besu.hyperledger.org/23.7.3/public-networks/how-to/monitor/metrics#metrics-list)
 
-### Introdução ao Dashboard
+### Executando Consultas com PromQL
 
-Agora vamos criar um dashboard para monitorar as métricas mais importantes do nosso node Besu: o número de blocos, número de transações, uso de CPU e uso de disco. Isso nos permitirá ter uma visão clara do estado atual da blockchain e da performance do node.
+PromQL é a linguagem de consulta do Prometheus, e é aqui que a mágica acontece. Vamos executar alguns comandos para extrair informações valiosas:
 
-### Criando os Gráficos
+- Para o tempo de bloco:
 
-1. **Número de Blocos**
-
-- No Grafana, vá até **Dashboards** > **Create** > **Add Panel**.
-- No campo **Query**, use a seguinte consulta PromQL:
-
-```promql
-besu_blockchain_height
+```bash
+rate(ethereum_best_known_block_number[5m])
 ```
 
-- Dê um nome ao gráfico, como “Número de Blocos”, e salve.
+- Para o número do bloco atual:
 
-2. **Número de Transações**
-
-- Adicione um novo painel e insira a seguinte consulta:
-
-```promql
-rate(besu_transactions_total[5m])
+```bash
+ethereum_blockchain_height
 ```
 
-- Nomeie o gráfico como “Número de Transações” e salve.
+- Para o tamanho da blockchain em disco:
 
-3. **Uso de CPU**
-
-- Para o uso de CPU, insira a seguinte consulta PromQL:
-
-```promql
-rate(node_cpu_seconds_total[5m])
+```bash
+besu_storage_size_bytes
 ```
 
-- Nomeie o gráfico como “Uso de CPU” e salve.
+### Criando Gráficos para Visualização
 
-4. **Uso de Disco**
+Agora que temos as métricas, vamos criar gráficos para visualizá-las. Dentro da interface do Prometheus, você pode criar gráficos personalizados que ajudam a visualizar o estado da sua blockchain em tempo real.
 
-- Adicione um novo painel com a seguinte consulta:
+Vamos criar três gráficos:
 
-```promql
-node_filesystem_size_bytes
+1. **Tempo de Bloco**: Use o comando PromQL que acabamos de aprender para visualizar a duração média dos blocos.
+2. **Número do Bloco Atual**: Visualize o crescimento da blockchain com o número de blocos sendo minerados.
+3. **Tamanho da Blockchain em Disco**: Veja como o tamanho da blockchain cresce ao longo do tempo.
+
+### Configurando Alertas
+
+Por fim, vamos configurar um alerta para quando novas transações forem mineradas. No Prometheus, os alertas são configurados para monitorar certos eventos e disparar notificações quando algo fora do comum acontece.
+
+Vamos configurar um alerta simples para monitorar o número de transações:
+
+```yaml
+groups:
+  - name: besu_alerts
+    rules:
+      - alert: NewTransactions
+        expr: rate(besu_blockchain_height[1m]) > 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Novas transações foram mineradas"
+          description: "A blockchain registrou novas transações nos últimos 5 minutos."
 ```
-
-- Nomeie o gráfico como “Uso de Disco” e salve.
-
-Com esses quatro gráficos, agora temos um dashboard básico que cobre os principais pontos de monitoramento do node Besu.
-
----
-
-**Parte 4: Configurando Alertas no Grafana**
-
----
-
-### Introdução aos Alertas
-
-Os alertas no Grafana são uma ferramenta vital para manter seus sistemas sob controle. Eles são configurados diretamente nos painéis e, ao serem acionados, enviam notificações por e-mail, Slack ou outras ferramentas de comunicação.
-
-### Criando um Alerta para Novas Transações
-
-Vamos configurar um alerta para quando novas transações forem mineradas. Siga os passos abaixo:
-
-1. Selecione o painel do **Número de Transações**.
-2. Clique no ícone de configurações e vá para a aba **Alert**.
-3. Adicione uma nova regra de alerta com o seguinte critério:
-   - **Condition**: Quando o número de transações aumentar em um intervalo de 1 minuto.
-   - **Query**:
-     ```promql
-     rate(besu_transactions_total[1m]) > 0
-     ```
-4. Configure o alerta para disparar uma notificação quando novas transações forem detectadas.
-5. Salve o alerta.
-
-Agora, sempre que uma nova transação for minerada no node, o alerta será disparado, e você receberá uma notificação.
-
----
 
 ### Conclusão
 
-E com isso, completamos a integração do Besu, Prometheus e Grafana. Agora, você tem uma visualização completa das métricas do seu node blockchain e pode configurar alertas para garantir que qualquer atividade crítica seja monitorada em tempo real.
+Agora você tem o conhecimento de:
 
-Na próxima aula, vamos explorar como automatizar ainda mais esses processos e aprofundar o uso do Grafana para criar dashboards mais complexos. Até lá, continue experimentando com o que aprendemos hoje!
+- monitorar e visualizar métricas usando Prometheus
+- configurar alertas com AlertManager e Prometheus
+
+Na próxima aula, vamos entender o que é o Grafana e como integrar ele com o Prometheus e criar Dashboards.

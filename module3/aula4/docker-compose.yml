@@ -1,11 +1,8 @@
 services:
   bootnode:
     container_name: master
-    environment:
-      - LOG4J_CONFIGURATION_FILE=/config/log-config.xml
     image: hyperledger/besu:latest
     volumes:
-      - ./logs:/var/log/besu
       - ./:/config
     ports:
       - 8545:8545
@@ -63,37 +60,23 @@ services:
       - 8548
       - 30303
 
-  promtail:
-    image: grafana/promtail
-    ports:
-      - "9080:9080"
+  prometheus:
+    image: prom/prometheus
     volumes:
-      - ./logs:/var/log/besu
-      - ./promtail:/etc/promtail
-    networks:
-      - besu-network
-
-  loki:
-    image: grafana/loki
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
-      - "3100:3100"
-    command:
-      - -config.file=/etc/loki/local-config.yaml
-      - -print-config-stderr=true
+      - "9090:9090"
+    depends_on:
+      - bootnode
     networks:
       - besu-network
-    depends_on:
-      - promtail
 
   grafana:
     image: grafana/grafana
-    environment:
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
     ports:
       - "3000:3000"
     depends_on:
-      - loki
+      - prometheus
     networks:
       - besu-network
 
@@ -106,4 +89,3 @@ networks:
       config:
         - subnet: "10.10.0.0/24"
           gateway: "10.10.0.1"
-

@@ -1,0 +1,18 @@
+global:
+route:
+  receiver: Discord
+  group_by: ["alertname"]
+  group_wait: 1s
+  group_interval: 1s
+  repeat_interval: 2s
+
+  routes:
+    - receiver: Discord
+      match:
+        team: "txmined"
+
+receivers:
+  - name: Discord
+    discord_configs:
+      - webhook_url: "https://discord.com/api/webhooks/1283072528377577562/8anX9XQlqwjgzDNrv-3aZWX8kF9x9iFZ3jk7Oc3kUME9YKBAyU5A_GhqZghqNsc28Nk-"
+        message: "{{ range .Alerts }}{{ .Annotations.summary }}\n{{ end }}"

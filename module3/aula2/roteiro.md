@@ -77,31 +77,10 @@ Vamos criar três gráficos:
 2. **Número do Bloco Atual**: Visualize o crescimento da blockchain com o número de blocos sendo minerados.
 3. **Tamanho da Blockchain em Disco**: Veja como o tamanho da blockchain cresce ao longo do tempo.
 
-### Configurando Alertas
-
-Por fim, vamos configurar um alerta para quando novas transações forem mineradas. No Prometheus, os alertas são configurados para monitorar certos eventos e disparar notificações quando algo fora do comum acontece.
-
-Vamos configurar um alerta simples para monitorar o número de transações:
-
-```yaml
-groups:
-  - name: besu_alerts
-    rules:
-      - alert: NewTransactions
-        expr: rate(besu_blockchain_height[1m]) > 0
-        for: 1m
-        labels:
-          severity: warning
-        annotations:
-          summary: "Novas transações foram mineradas"
-          description: "A blockchain registrou novas transações nos últimos 5 minutos."
-```
-
 ### Conclusão
 
 Agora você tem o conhecimento de:
 
 - monitorar e visualizar métricas usando Prometheus
-- configurar alertas com AlertManager e Prometheus
 
-Na próxima aula, vamos entender o que é o Grafana e como integrar ele com o Prometheus e criar Dashboards.
+Na próxima aula, vamos entender como gerar alertas usando essas métricas com o AlertManager.

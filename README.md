@@ -45,17 +45,22 @@
 - Tópicos: História e Arquitetura do Prometheus
 - Projeto: Rodar o prometheus com Docker, Configuração de jobs e targets, Configurar o Prometheus para monitorar um node blockchain
 
-**✅ Aula 3.3: Integrando Besu + Prometheus + Grafana**
+**✅ Aula 3.3: Integrando Besu + Prometheus + AlertManager**
+
+- Tópicos: História e Arquitetura do Prometheus
+- Projeto: Rodar o prometheus com Docker, Configuração de jobs e targets, Configurar o Prometheus para monitorar um node blockchain
+
+**✅ Aula 3.4: Integrando Besu + Prometheus + Grafana**
 
 - Tópicos: História e Arquitetura do Grafana
 - Projeto: rodar o Grafana com Docker, Integrando Grafana com Prometheus, Criar dashboard no Grafana
 
-**✅ Aula 3.4: Logs com Grafana Loki**
+**✅ Aula 3.5: Logs com Grafana Loki**
 
 - Tópicos: História e Arquitetura do Grafana Loki
 - Projeto: rodar o Loki com Docker
 
-**✅ Aula 3.5: Explorador de Blocos**
+**✅ Aula 3.6: Explorador de Blocos**
 
 - Tópicos: O que são explorers
 - Projeto: Configurar e integrar o Etherparty para monitorar uma rede Besu

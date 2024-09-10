@@ -2,32 +2,24 @@ services:
   besu:
     image: hyperledger/besu:latest
     volumes:
-      - ./:/config
+      - ./besu:/config
     ports:
       - 8545:8545
-      - 8546:8546
-      - 8547:8547
       - 8548:8548
     command: --config-file=/config/besu.toml
 
   prometheus:
     image: prom/prometheus
     volumes:
-      - ./alert-rules.yml:/etc/prometheus/alert-rules.yml
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus:/etc/prometheus
     ports:
       - "9090:9090"
-    depends_on:
-      - besu
 
   alertmanager:
     image: prom/alertmanager:latest
     volumes:
-      - ./alert-manager.yml:/prometheus/alert-manager.yml
+      - ./alertmanager:/prometheus
     command:
       - "--config.file=/prometheus/alert-manager.yml"
     ports:
       - "9093:9093"
-    depends_on:
-      - prometheus
-

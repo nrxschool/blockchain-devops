@@ -64,7 +64,7 @@ ethereum_blockchain_height
 - Para o tamanho da blockchain em disco:
 
 ```bash
-besu_storage_size_bytes
+rocksdb_bytes_written
 ```
 
 ### Criando Gráficos para Visualização

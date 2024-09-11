@@ -1,4 +1,4 @@
-# Aula 3.4: Logs com Grafana Loki
+# Aula 3.5: Logs com Grafana Loki
 
 ## 1. Introdução ao Monitoramento de Logs com Loki
 

@@ -23,38 +23,7 @@ O AlertManager, parte do ecossistema Prometheus, foi desenvolvido para lidar com
 
 No nosso arquivo Docker Compose, orquestramos três serviços principais: Besu, Prometheus e AlertManager. Abaixo está o trecho relevante da configuração:
 
-```yaml
-services:
-  besu:
-    image: hyperledger/besu:latest
-    volumes:
-      - ./:/config
-    ports:
-      - 8545:8545
-      - 8546:8546
-    command: --config-file=/config/besu.toml
-
-  prometheus:
-    image: prom/prometheus
-    volumes:
-      - ./alert-rules.yml:/etc/prometheus/alert-rules.yml
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
-    depends_on:
-      - besu
-
-  alertmanager:
-    image: prom/alertmanager:latest
-    volumes:
-      - ./alert-manager.yml:/prometheus/alert-manager.yml
-    command:
-      - "--config.file=/prometheus/alert-manager.yml"
-    ports:
-      - "9093:9093"
-    depends_on:
-      - prometheus
-```
+- **[docker-compose.yml](./docker-compose.yml)**
 
 > **Passo a passo:** Este arquivo cria containers para o Besu (nosso nó blockchain), o Prometheus para coletar métricas, e o AlertManager para gerenciar os alertas.
 
@@ -62,23 +31,7 @@ services:
 
 O `prometheus.yml` define como o Prometheus coleta as métricas do Besu e se comunica com o AlertManager.
 
-```yml
-global:
-  scrape_interval: 5s
-
-rule_files:
-  - "alert-rules.yml"
-
-scrape_configs:
-  - job_name: "besu"
-    static_configs:
-      - targets: ["besu:8548"]
-
-alerting:
-  alertmanagers:
-    - static_configs:
-        - targets: ["alertmanager:9093"]
-```
+- **[prometheus.yml](./prometheus/prometheus.yml)**
 
 - **scrape_configs**: Aqui especificamos o node Besu e as portas expostas para capturar suas métricas.
 - **alerting**: Conecta o Prometheus ao AlertManager, garantindo que os alertas sejam enviados.
@@ -91,22 +44,7 @@ alerting:
 
 Aqui definimos os canais de notificação para onde os alertas serão enviados. No exemplo abaixo, usamos um webhook do Discord.
 
-```yml
-global:
-route:
-  group_by: ["alertname"]
-  receiver: discord_channel
-  group_wait: 10s
-  group_interval: 5m
-  repeat_interval: 30m
-
-receivers:
-  - name: discord_channel
-    discord_configs:
-      - webhook_url: "DISCORD_WEBHOOK_URL"
-        title: '{{ template "default.title" . }}'
-        text: "{{ range .Alerts }}{{ .Annotations.summary }}\n{{ end }}"
-```
+- **[prometheus.yml](./prometheus/alert-rules.yml)**
 
 Substitua `"DISCORD_WEBHOOK_URL"` pelo seu webhook gerado no Discord.
 
@@ -116,19 +54,7 @@ Substitua `"DISCORD_WEBHOOK_URL"` pelo seu webhook gerado no Discord.
 
 Aqui definimos as regras de alerta. Vamos configurar um alerta para quando uma nova transação for minerada.
 
-```yml
-groups:
-  - name: transaction_alerts
-    rules:
-      - alert: NewTransactionMined
-        expr: increase(besu_blockchain_chain_head_transaction_count_counter_total[30s]) > 0
-        for: 0s
-        labels:
-          severity: info
-        annotations:
-          summary: "Nova transação minerada no Besu"
-          description: "Uma nova transação foi minerada nos últimos 30 segundos."
-```
+- **[alert-rules.yml](./alertmanager/alert-manager.yml)**
 
 - **expr**: Define a lógica para o alerta, neste caso, monitorando o número de transações mineradas no Besu.
 - **annotations**: O texto personalizado que será enviado ao Discord.
@@ -141,8 +67,6 @@ groups:
 2. Verifique se as métricas estão sendo capturadas em **Status > Targets**.
 3. Acesse o AlertManager em `http://localhost:9093` para monitorar os alertas em tempo real.
 4. Simule uma transação no Besu e observe a notificação aparecer no Discord.
-
-> **Nota:** Você pode verificar logs dos containers para depurar possíveis erros, usando `docker logs <nome-do-container>`.
 
 ## 5. Ajustando Alertas e Escalonamento
 

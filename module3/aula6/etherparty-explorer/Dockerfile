@@ -4,7 +4,7 @@ FROM node:18-slim
 # Definindo o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copiando o package.json e o bower.json para o container
+# Copiando os arquivos para o container
 COPY . .
 
 # Instalando dependências de produção e desenvolvimento

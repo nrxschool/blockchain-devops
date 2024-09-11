@@ -53,7 +53,7 @@ COPY . .
 RUN npm install
 
 # Expondo a porta em que o aplicativo será executado
-EXPOSE 8080
+EXPOSE 8000
 
 # Comando para iniciar o servidor
 CMD ["npm", "run", "prod"]

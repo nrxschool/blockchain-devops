@@ -1,4 +1,4 @@
-# Aula 3.5: Explorador de Blocos
+# Aula 3.6: Explorador de Blocos
 
 ### Introdução
 

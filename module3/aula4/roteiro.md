@@ -1,4 +1,4 @@
-# Aula 3.3: Integrando Besu + Prometheus + Grafana
+# Aula 3.4: Integrando Besu + Prometheus + Grafana
 
 ### Introdução
 

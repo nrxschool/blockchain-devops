@@ -5,6 +5,7 @@ services:
       - ./besu:/config
     ports:
       - 8545:8545
+      - 8546:8546
       - 8548:8548
     command: --config-file=/config/besu.toml
 

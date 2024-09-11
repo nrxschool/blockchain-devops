@@ -8,6 +8,7 @@
     "web3": "1.9.0"
   },
   "scripts": {
-    "start": "node index.js"
+    "send": "node index.js",
+    "listen": "node listener.js"
   }
 }

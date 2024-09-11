@@ -1,21 +1,22 @@
 groups:
-  - name: txmined_once
+  - name: besu_miner
     rules:
-      - alert: NewTransactionMined
-        expr: rate(besu_blockchain_chain_head_transaction_count_counter_total[5s]) > 0
-        for: 0s
+      - alert: BesuMiningStopped
+        expr: rate(besu_blockchain_chain_head_timestamp[1m]) <= 1
+        for: 2s
         labels:
-          team: newtx
+          severity: critical
         annotations:
-          summary: "New transaction mined on the blockchain"
-          description: "A new transaction was mined on the blockchain"
+          summary: "Besu has stopped mining"
+          description: "The Besu node has not produced any new blocks in the last 10 seconds."
+
   - name: besu_availability
     rules:
       - alert: BesuDown
         expr: up{job="besu_node"} == 0
-        for: 10s
+        for: 2s
         labels:
           severity: critical
         annotations:
           summary: "Besu node is down"
-          description: "The Besu node {{ $labels.instance }} is down for more than 1 minute."
+          description: "The Besu node {{ $labels.instance }} is down for more than 10 seconds."

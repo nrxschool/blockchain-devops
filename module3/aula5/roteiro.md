@@ -162,7 +162,7 @@ docker-compose up -d
 
 Isso irá subir os containers do Besu, Promtail, Loki e Grafana.
 
-### 4.2 Verificando a Integração
+### 4.2 Explorar Logs
 
 Acesse o Grafana em `http://localhost:3000` e navegue até a seção de **Explore**. Aqui, selecione o Loki como a fonte de dados e explore os logs gerados pelos nós do Besu.
 

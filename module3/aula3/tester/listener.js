@@ -5,7 +5,7 @@ const BESU_URL = "ws://127.0.0.1:8546";
 
 const web3 = new Web3(BESU_URL);
 const DISCORD_WEBHOOK_URL =
-  "https://discord.com/api/webhooks/1283129693154971788/oVn6BKAj88rPGGEK034csoO5ynxFZ7egIr9dmBIPXMvCeD8Nj61OSVaISFEvOJT3cDNA";
+  "https://discord.com/api/webhooks/1283254512739680390/fidh3A_7EfHwu6R2SRAkvkgVo0On6fvWwYm2y7WYmM71o4LqIv3vvaRRQUwF-rBLwgFZ";
 
 const sendDiscord = async (text) => {
   const payload = {

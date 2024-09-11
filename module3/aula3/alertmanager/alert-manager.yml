@@ -15,4 +15,4 @@ receivers:
   - name: Discord
     discord_configs:
       - webhook_url: "https://discord.com/api/webhooks/1283129693154971788/oVn6BKAj88rPGGEK034csoO5ynxFZ7egIr9dmBIPXMvCeD8Nj61OSVaISFEvOJT3cDNA"
-        message: "@here\n{{ range .Alerts }}{{ .Annotations.summary }}\n{{ .Annotation.description}}\n{{ end }}"
+        message: "{{ range .Alerts }}{{ .Annotations.summary }}\n{{ end }}"

@@ -27,5 +27,6 @@ metrics-category = [
     "PROCESS",
     "ETHEREUM",
     "TRANSACTION_POOL",
+    "KVSTORE_ROCKSDB_STATS"
 ]
 

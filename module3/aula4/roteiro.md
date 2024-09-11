@@ -12,7 +12,8 @@ Com sua interface amigável e uma vasta gama de plugins, o Grafana é agora uma 
 
 ### Arquitetura do Grafana
 
-[docs](https://grafana.com/docs/grafana/latest/fundamentals/intro-to-prometheus/#prometheus-as-deployment)
+- [Docs](https://grafana.com/docs/grafana/)
+- [Arch](https://doubletapp.medium.com/overview-of-monitoring-system-with-prometheus-and-grafana-9ce6501eff88)
 
 A arquitetura do Grafana se baseia em três elementos principais:
 
@@ -103,17 +104,7 @@ rate(node_cpu_seconds_total[5m])
 
 - Nomeie o gráfico como “Uso de CPU” e salve.
 
-4. **Uso de Disco**
-
-- Adicione um novo painel com a seguinte consulta:
-
-```promql
-node_filesystem_size_bytes
-```
-
-- Nomeie o gráfico como “Uso de Disco” e salve.
-
-Com esses quatro gráficos, agora temos um dashboard básico que cobre os principais pontos de monitoramento do node Besu.
+Agora temos um dashboard básico que cobre os principais pontos de monitoramento do node Besu.
 
 ---
 
@@ -129,14 +120,16 @@ Os alertas no Grafana são uma ferramenta vital para manter seus sistemas sob co
 
 Vamos configurar um alerta para quando novas transações forem mineradas. Siga os passos abaixo:
 
-1. Selecione o painel do **Número de Transações**.
+1. Selecione o painel do **Status do node**.
 2. Clique no ícone de configurações e vá para a aba **Alert**.
 3. Adicione uma nova regra de alerta com o seguinte critério:
-   - **Condition**: Quando o número de transações aumentar em um intervalo de 1 minuto.
+   - **Condition**: Quando o status for `0` por `10s`
    - **Query**:
-     ```promql
-     rate(besu_transactions_total[1m]) > 0
-     ```
+
+```js
+up{job="besu_node"}
+```
+
 4. Configure o alerta para disparar uma notificação quando novas transações forem detectadas.
 5. Salve o alerta.
 

@@ -81,6 +81,19 @@ services:
       - "8086:8086"
     environment:
       - INFLUXDB_DB=k6
+      - INFLUXDB_DATA_MAX_CONCURRENT_WRITES=64
+      - INFLUXDB_DATA_MAX_BODY_SIZE=25MB
+      - INFLUXDB_HTTP_MAX_CONNECTIONS=1024
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+    volumes:
+      - influxdb_data:/var/lib/influxdb
 
   grafana:
     depends_on:
@@ -102,3 +115,6 @@ networks:
       config:
         - subnet: "10.10.0.0/24"
           gateway: "10.10.0.1"
+
+volumes:
+  influxdb_data:

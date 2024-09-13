@@ -1,6 +1,4 @@
 import eth from "k6/x/ethereum";
-import http from "k6/http";
-import { check, sleep } from "k6";
 import { Counter } from "k6/metrics";
 
 const PRIVATE_KEY = "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";

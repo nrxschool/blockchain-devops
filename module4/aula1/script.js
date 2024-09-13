@@ -11,7 +11,7 @@ export const options = {
 };
 
 export default function () {
-  const res = http.get("http://host.docker.internal:8080");
+  const res = http.get("http://nginx");
   check(res, {
     "is status 200": (r) => r.status === 200,
     "body size is 615 bytes": (r) => r.body.length == 615,

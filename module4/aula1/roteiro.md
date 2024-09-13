@@ -30,9 +30,9 @@ O **K6** é uma ferramenta moderna e open-source para executar testes de carga. 
 
 ## Instalando e Configurando o K6 via Docker
 
-1. **Instalar o Docker: ** A essa altura do curso com certeza você já tem o docker instalado certo?
+1. **Instalar o Docker:** A essa altura do curso com certeza você já tem o docker instalado certo?
 
-2. **Script de teste: ** Vamos criar um script simples com o nome `simples.js` que já irei explicar cada item dele:
+2. **Script de teste:** Vamos criar um script simples com o nome `simples.js` que já irei explicar cada item dele:
 
 ```javascript
 // IMPORTS
@@ -250,7 +250,7 @@ Pronto, agora vamos criar um novo dasboard com o json que temos aqui no reposito
 Agora vamos rodar nosso container docker que tem o k6 para executar os testes com um comando extra para que ele envie os resultados para o influxDB
 
 ```
-docker run --rm -i grafana/k6 run -o influxdb=http://host.docker.internal:8086 - <script.js
+docker run --rm -i grafana/k6 run -o influxdb=http://influxdb:8086 - <script.js
 ```
 
 Agora é só abrir o Grafana e acompanhar os resultados
@@ -264,4 +264,4 @@ Nesta aula, você aprendeu:
 - Como criar e executar scripts de teste básicos e costumizados.
 - Como integrar K6 com Grafana e InflusDB
 
-Na próxima aula, vamos integrar tudo isso que aprendemos com o mundo de blockchain e entender e executar os principais tipos de testes de carga.
+Na próxima aula, vamos aprender sobre como executar os principais tipos de testes de carga, começando pelo Smoke Testing.

@@ -264,4 +264,4 @@ Nesta aula, você aprendeu:
 - Como criar e executar scripts de teste básicos e costumizados.
 - Como integrar K6 com Grafana e InflusDB
 
-Na próxima aula, vamos aprender sobre como executar os principais tipos de testes de carga, começando pelo Smoke Testing.
+Na próxima aula, vamos aprender sobre como executar os principais tipos de testes de carga, começando pelo Smoke Testing

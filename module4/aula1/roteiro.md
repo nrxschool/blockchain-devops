@@ -187,7 +187,7 @@ Adicionamos 2 coisas o `thresholds` que é limites para que o teste falhe caso s
 
 Eles podem parecer iguais mas não são, veja quando o limite de um `thresholds` é exedido o teste irá falhar, isso já não acontece com o `check`. É frequentemente útil combinar ambos para obter o melhor dos dois.
 
-### Integrando Nginx + Compose + K6 + Grafana
+### Integrando Nginx + InfluxDB + Grafana e K6
 
 Agora vamos amarrar tudo para ver como a aplicação degrada com gráficos.
 
@@ -195,37 +195,7 @@ Pra isso vamos fazer com que o k6 envie os resultados dos testes para o influxDB
 
 Depois vamos coletar esses dados via Grafana e gerar alguns gráficos. Tudo isso vai rodar junto no docker-compose:
 
-```yml
-networks:
-  my_net:
-
-services:
-  nginx:
-    image: nginx:latest
-    ports:
-      - "80:80"
-
-  influxdb:
-    image: influxdb:1.8
-    networks:
-      - my_net
-    ports:
-      - "8086:8086"
-    environment:
-      - INFLUXDB_DB=k6
-
-  grafana:
-    depends_on:
-      - influxdb
-    image: grafana/grafana:latest
-    networks:
-      - my_net
-    ports:
-      - "3000:3000"
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-```
+- **[docker-compose.yml](./docker-compose.yml)**
 
 Junto com o influxDB e o Grafana eu adicionei um nginx simples para usarmos como alvo dos testes.
 

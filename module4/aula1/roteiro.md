@@ -232,6 +232,6 @@ Nesta aula, você aprendeu:
 - Sobre a importância dos testes de carga
 - A arquitetura do K6
 - Como criar e executar scripts de teste básicos e costumizados.
-- Como integrar K6 com Grafana e InflusDB
+- Como integrar K6 com Grafana e InfluxDB
 
 Na próxima aula, vamos aprender sobre como executar os principais tipos de testes de carga, começando pelo Smoke Testing

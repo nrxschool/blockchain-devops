@@ -21,7 +21,7 @@ services:
     environment:
       - INFLUXDB_DB=k6
       - INFLUXDB_DATA_MAX_CONCURRENT_WRITES=64
-      - INFLUXDB_DATA_MAX_BODY_SIZE=25MB
+      - INFLUXDB_DATA_MAX_BODY_SIZE=100MB
       - INFLUXDB_HTTP_MAX_CONNECTIONS=1024
     deploy:
       resources:

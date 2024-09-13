@@ -38,72 +38,13 @@ Imagine que você acabou de configurar uma nova versão da sua aplicação. Ante
 
 **Preparando o Ambiente**
 
-O `docker-compose` da aula passada será usado denovo e em todas as próximas aulas de teste. Só relembrando:
-
-```yaml
-networks:
-  my_net:
-
-services:
-  nginx:
-    image: nginx:latest
-    ports:
-      - "80:80"
-
-  influxdb:
-    image: influxdb:1.8
-    networks:
-      - my_net
-    ports:
-      - "8086:8086"
-    environment:
-      - INFLUXDB_DB=k6
-
-  grafana:
-    depends_on:
-      - influxdb
-    image: grafana/grafana:latest
-    networks:
-      - my_net
-    ports:
-      - "3000:3000"
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-```
+**O `docker-compose` da aula passada será usado denovo e em todas as próximas aulas de teste**
 
 **Configurando o Script de Teste**
 
 Crie um novo arquivo teste de nome `script.js` com um item a mais, dessa vez vamos criar um contador de status 200 para vermos isso no Grafana.
 
-```javascript
-import http from "k6/http";
-import { check, sleep } from "k6";
-import { Counter } from "k6/metrics";
-
-export let options = {
-  vus: 20000,
-  duration: "30s",
-};
-
-const successfulRequests = new Counter("successful_requests");
-const failRequests = new Counter("fail_requests");
-
-export default function () {
-  let res = http.get("http://nginx");
-
-  const checkResult = check(res, {
-    "status was 200": (r) => r.status == 200,
-  });
-
-  if (checkResult) {
-    successfulRequests.add(1);
-  } else {
-    failRequests.add(1);
-  }
-  sleep(1);
-}
-```
+- **[`script.js`](./script.js)**
 
 **Executando o Teste**
 

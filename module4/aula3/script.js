@@ -6,7 +6,7 @@ import { Counter, Gauge, Rate, Trend } from "k6/metrics";
 export let options = {
   stages: [
     // STAGE 1: 1 minuto com 1.000 Usuários Virtuais
-    { duration: "4m", target: 1000 },
+    { duration: "5m", target: 1000 },
     // STAGE 2: 30 segundos para remover os 1.000 Usuários Virtuais
     { duration: "30s", target: 0 },
   ],
@@ -52,5 +52,3 @@ export default function () {
   // Dorme 1 segundo antes da próxima iteração
   sleep(1);
 }
-
-

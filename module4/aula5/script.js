@@ -1,30 +1,30 @@
 import eth from "k6/x/ethereum";
-import { Counter, Gauge, Trend, Rate } from "k6/metrics";
+import { Counter, Gauge, Trend } from "k6/metrics";
 
 const PRIVATE_KEY =
   "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
+const ALICE = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
 const BOB = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8";
 const NODE_RPC_URL = "http://127.0.0.1:8545";
 let NONCE = 0;
 
 export let options = {
   stages: [
-    { duration: "30s", target: 1 },
-    { duration: "30s", target: 5 },
-    { duration: "30s", target: 10 },
-    { duration: "30s", target: 50 },
-    { duration: "30s", target: 100 },
-    { duration: "30s", target: 200 },
-    { duration: "30s", target: 0 },
+    // Aumenta gradualmente o número de usuários virtuais
+    { duration: "30s", target: 1 }, // 30s com 1 usuários
+    { duration: "30s", target: 5 }, // 30s com 5 usuários
+    { duration: "30s", target: 10 }, // 30s com 10 usuários
+    { duration: "30s", target: 50 }, // 30s com 50 usuários
+    { duration: "30s", target: 100 }, // 30s com 100 usuários
+    { duration: "30s", target: 200 }, // 30s com 200 usuários
+    { duration: "30s", target: 0 }, // Finaliza removendo todos os usuários
   ],
 };
 
-// Métricas personalizadas
-const txSended = new Counter("txSended");
-const gasUsed = new Gauge("gasUsed");
-const txConfirmationTime = new Trend("txConfirmationTime");
-const txMiningRate = new Rate("txMiningRate");
-const senderBalance = new Gauge("senderBalance");
+const nonceCounter = new Counter("Nonce");
+const ethSended = new Counter("EthSended");
+const gasUsedGauge = new Gauge("GasUsedGauge");
+const txMinedTime = new Trend("TxMinedTime");
 
 export default function () {
   const client = new eth.Client({
@@ -32,11 +32,12 @@ export default function () {
     privateKey: PRIVATE_KEY,
   });
 
-  const balance = client.getBalance(); // Captura saldo do remetente
-  senderBalance.add(balance);
-
   const GAS = client.gasPrice();
-  const startTime = new Date().getTime(); // Início do tempo de confirmação da transação
+
+  let prev_nonce = client.getNonce(ALICE);
+  if (NONCE < prev_nonce) {
+    NONCE = prev_nonce;
+  }
 
   const tx = {
     to: BOB,
@@ -45,18 +46,16 @@ export default function () {
     nonce: NONCE,
   };
 
+  const startTime = new Date().getTime();
   const TX_HASH = client.sendRawTransaction(tx);
+  client.waitForTransactionReceipt(TX_HASH).then((txMined) => {
+    const endTime = new Date().getTime();
+
+    ethSended.add(Number(0.0001 * 1e18));
+    gasUsedGauge.add(txMined.gas_used);
+    txMinedTime.add(endTime - startTime);
+  });
+
   NONCE++;
-  txSended.add(1);
-
-  const txReceipt = client.waitForTransactionReceipt(TX_HASH);
-  const endTime = new Date().getTime(); // Fim do tempo de confirmação
-
-  if (txReceipt.status === 1) {
-    txMiningRate.add(1);
-    gasUsed.add(txReceipt.gasUsed); // Adiciona o gas utilizado
-    txConfirmationTime.add(endTime - startTime); // Adiciona o tempo de confirmação da transação
-  } else {
-    txMiningRate.add(0); // Transação falhou
-  }
+  nonceCounter.add(1);
 }

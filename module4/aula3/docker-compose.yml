@@ -5,8 +5,12 @@ volumes:
   influxdb_data:
 
 services:
-  nginx:
-    image: nginx:latest
+  node:
+    image: node:latest
+    volumes:
+      - ./server.js:/usr/src/app/server.js
+    working_dir: /usr/src/app
+    command: node server.js
     ports:
       - "80:80"
     networks:
@@ -21,7 +25,7 @@ services:
     environment:
       - INFLUXDB_DB=k6
       - INFLUXDB_DATA_MAX_CONCURRENT_WRITES=64
-      - INFLUXDB_DATA_MAX_BODY_SIZE=25MB
+      - INFLUXDB_DATA_MAX_BODY_SIZE=100MB
       - INFLUXDB_HTTP_MAX_CONNECTIONS=1024
     deploy:
       resources:
@@ -45,4 +49,3 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
-

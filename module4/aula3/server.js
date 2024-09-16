@@ -3,7 +3,7 @@ const http = require('http');
 const generateRandomContent = () => {
     const minSize = 100;
     const maxSize = 2000;
-    const size = Math.floor(Math.random() * (maxSize - minSize + 1)) + minSize;
+    const size = Math.floor(Math.random() * (maxSize - minSize)) + minSize;
     const possibleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ';
     let randomContent = '';
     for (let i = 0; i < size; i++) {

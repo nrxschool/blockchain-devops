@@ -47,7 +47,7 @@ SELECT mean("value") FROM "success_rate" WHERE $timeFilter GROUP BY time($interv
 - **response_time_trend**: Tempo de resposta mínimo, médio, máximo, percentil 90 e percentil 95
 
 ```sql
-SELECT min("value") AS MIN, max("value") AS MAX, mean("value") AS AVG, percentile("value", 95) AS p90, percentile("value", 99) AS p95
+SELECT min("value") AS MIN, max("value") AS MAX, mean("value") AS AVG, percentile("value", 90) AS p90, percentile("value", 95) AS p95
 FROM "response_time_trend" WHERE $timeFilter GROUP BY time($__interval) fill(null)
 ```
 

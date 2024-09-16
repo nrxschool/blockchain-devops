@@ -30,12 +30,6 @@ ethereum_blockchain_height{job="besu_node"}
 besu_blockchain_chain_head_transaction_count_counter_total{node="besu-1"}
 ```
 
-- **besu_transaction_pool_number_of_transactions**: Quantidade de Transações no MemPool
-
-```sql
-besu_transaction_pool_number_of_transactions{node="besu-1", layer="ready"}
-```
-
 - **up**: Funcionamento do Node
 
 ```sql
@@ -44,28 +38,22 @@ up{job="besu_node"}
 
 ### Métricas do teste via K6/InfluxDB
 
-- **nonce_counter**: Número de Transações
-
-```sql
-SELECT sum("value") FROM "nonce_counter"
-```
-
 - **eth_sended_counter**: Total de ETH enviados
 
 ```sql
 SELECT sum("value") FROM "eth_sended_counter"
 ```
 
-- **gas_used_gauge**: Mínimo, atual e máximo de gas usado
+- **gas_used_gauge**: Quantidade mínima, última e máxima de gas usado
 
 ```sql
-SELECT min("value") AS "min", last("value") AS "current", max("value") AS "max" FROM "gas_used_gauge" WHERE $timeFilter GROUP BY time($interval) fill(null)
+SELECT min("value") AS "min", last("value") AS "last", max("value") AS "max" FROM "gas_used_gauge" WHERE $timeFilter GROUP BY time($interval) fill(null)
 ```
 
-- **tx_mined_time_trend**: Tempo de mineração de uma transação mínimo, médio, máximo, percentil 90 e percentil 95
+- **ethereum_time_to_mine**: Tempo que passou desde que uma transação foi enviada para o cliente e foi incluída num bloco mínimo, médio, máximo, percentil 90 e percentil 95
 
 ```sql
-SELECT min("value") AS "min", last("value") AS "current", max("value") AS "max" FROM "tx_mined_time_trend" WHERE $timeFilter GROUP BY time($interval) fill(null)
+SELECT min("value") AS "min", mean("value") AS "mean", max("value") AS "max", percentile("value", 90) AS "p90", percentile("value", 90) AS "p95" FROM "ethereum_time_to_mine" WHERE $timeFilter GROUP BY time($interval) fill(null)
 ```
 
 ## Configuração do k6

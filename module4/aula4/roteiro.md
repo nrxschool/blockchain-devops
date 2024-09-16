@@ -4,7 +4,7 @@
 
 Nesta aula, vamos entender como integrar o k6 com nosso ambiente blockchain e como rodar um Breakpoint Testing.
 
-## Conceito: Spike Testing
+## Conceito: Breakpoint Testing
 
 - [Grafana docs](https://grafana.com/docs/k6/latest/testing-guides/test-types/breakpoint-testing/)
 
@@ -53,7 +53,7 @@ SELECT min("value") AS "min", last("value") AS "last", max("value") AS "max" FRO
 - **ethereum_time_to_mine**: Tempo que passou desde que uma transação foi enviada para o cliente e foi incluída num bloco mínimo, médio, máximo, percentil 90 e percentil 95
 
 ```sql
-SELECT min("value") AS "min", mean("value") AS "mean", max("value") AS "max", percentile("value", 90) AS "p90", percentile("value", 90) AS "p95" FROM "ethereum_time_to_mine" WHERE $timeFilter GROUP BY time($interval) fill(null)
+SELECT min("value") AS "min", mean("value") AS "mean", max("value") AS "max", percentile("value", 90) AS "p90", percentile("value", 95) AS "p95" FROM "ethereum_time_to_mine" WHERE $timeFilter GROUP BY time($interval) fill(null)
 ```
 
 ## Configuração do k6
@@ -98,7 +98,7 @@ Crie um novo arquivo para o teste de nome `script.js`.
 
 ```javascript
 import eth from "k6/x/ethereum";
-import { Counter, Gauge, Trend } from "k6/metrics";
+import { Counter, Gauge } from "k6/metrics";
 
 const PRIVATE_KEY =
   "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
@@ -109,21 +109,14 @@ let NONCE = 0;
 
 export let options = {
   stages: [
-    // Aumenta gradualmente o número de usuários virtuais
-    { duration: "30s", target: 1 }, // 30s com 1 usuários
-    { duration: "30s", target: 5 }, // 30s com 5 usuários
-    { duration: "30s", target: 10 }, // 30s com 10 usuários
-    { duration: "30s", target: 50 }, // 30s com 50 usuários
-    { duration: "30s", target: 100 }, // 30s com 100 usuários
-    { duration: "30s", target: 200 }, // 30s com 200 usuários
-    { duration: "30s", target: 0 }, // Finaliza removendo todos os usuários
+    { duration: "30s", target: 1 },
+    { duration: "30s", target: 10 },
+    { duration: "30s", target: 100 },
   ],
 };
 
-const nonceCounter = new Counter("nonce_counter");
 const ethSended = new Counter("eth_sended_counter");
 const gasUsedGauge = new Gauge("gas_used_gauge");
-const txMinedTime = new Trend("tx_mined_time_trend");
 
 export default function () {
   const client = new eth.Client({
@@ -131,31 +124,35 @@ export default function () {
     privateKey: PRIVATE_KEY,
   });
 
+  const GAS = client.gasPrice();
+
+  const prev_nonce = client.getNonce(ALICE);
+  if (NONCE < prev_nonce) {
+    NONCE = prev_nonce;
+  }
+
+  let value = Number(0.0001 * NONCE * 1e18)
   const tx = {
     to: BOB,
-    value: Number(0.0001 * 1e18),
-    gas_price: client.gasPrice(),
+    value: value,
+    gas_price: GAS,
     nonce: NONCE,
   };
 
-  const startTime = new Date().getTime();
-  const TX_HASH = client.sendRawTransaction(tx);
-  client.waitForTransactionReceipt(TX_HASH).then((txMined) => {
-    const endTime = new Date().getTime();
-
-    ethSended.add(Number(0.0001 * 1e18));
-    gasUsedGauge.add(txMined.gas_used);
-    txMinedTime.add(endTime - startTime);
+  const txh = client.sendRawTransaction(tx);
+  client.waitForTransactionReceipt(txh).then((receipt) => {
+    gasUsedGauge.add(receipt.gas_used);
   });
 
   NONCE++;
-  nonceCounter.add(1);
+  ethSended.add(value);
 }
+
 ```
 
 **Executando o Teste**
 
-Com o ambiente configurado, execute os seguintes comandos para rodar o Spike Test:
+Com o ambiente configurado, execute os seguintes comandos para rodar o Breakpoint Test:
 
 1. **Suba os contêineres:**
 

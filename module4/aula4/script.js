@@ -10,8 +10,8 @@ let NONCE = 0;
 
 export let options = {
   stages: [
+    { duration: "30s", target: 1 },
     { duration: "30s", target: 10 },
-    { duration: "30s", target: 100 },
     { duration: "30s", target: 100 },
   ],
 };

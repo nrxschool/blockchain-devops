@@ -1,14 +1,31 @@
-# Aula 6.1: Introdução ao Desenvolvimento de Smartcontracts EVM
+# Aula 6.2: Padrão ERC20
 
 ## Introdução
 
-Vamos explorar o ciclo de desenvolvimento de Smartcontracts
+- oq ue são eips
+- qual a impotancia do erc20 para a industria
 
-## Life Cycle
+## Prática: ERC20
 
-1. Escrever o contrato ERC20
-2. Escrever testes
-3. Slither para segurança
-4. Escrever script de Deploy
-5. Deploy do contrato
-6. Interagir com o contrato
+- Detalhe sobre como ele funciona
+
+## Prática: testes de ERC20
+
+- Escrever 1 teste para transacão
+- Escrever 1 teste para approve e transferFrom
+
+## Prática: Deploy local
+
+- Escrever script de deploy
+
+## Prática: Interação via FWT
+
+- Interagir via frontend
+
+## Conclusão da aula
+
+- o que aprendemos
+
+## proxima aula
+
+- Vamos ver como criar um Vendor Machine e previnir hacks de AccessControll e Reentrancy

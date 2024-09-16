@@ -15,7 +15,7 @@ rpc-http-enabled = true
 rpc-http-cors-origins = ["*"]
 rpc-http-host = "0.0.0.0"
 rpc-http-port = 8545
-rpc-http-max-active-connections=100000
+rpc-http-max-active-connections = 100000
 rpc-http-api = ["ADMIN", "ETH", "NET", "WEB3", "DEBUG", "TRACE", "TXPOOL"]
 
 
@@ -25,8 +25,16 @@ metrics-host = "0.0.0.0"
 metrics-port = 8548
 metrics-category = [
     "BLOCKCHAIN",
-    "PEERS",
-    "PROCESS",
     "ETHEREUM",
+    "EXECUTORS",
+    "JVM",
+    "NETWORK",
+    "PEERS",
+    "PERMISSIONING",
+    "PROCESS",
+    "PRUNER",
+    "RPC",
+    "STRATUM",
+    "SYNCHRONIZER",
     "TRANSACTION_POOL",
 ]

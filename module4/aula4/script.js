@@ -11,20 +11,14 @@ let NONCE = 0;
 export let options = {
   stages: [
     // Aumenta gradualmente o número de usuários virtuais
-    { duration: "30s", target: 1 }, // 30s com 1 usuários
-    { duration: "30s", target: 5 }, // 30s com 5 usuários
-    { duration: "30s", target: 10 }, // 30s com 10 usuários
-    { duration: "30s", target: 50 }, // 30s com 50 usuários
-    { duration: "30s", target: 100 }, // 30s com 100 usuários
-    { duration: "30s", target: 200 }, // 30s com 200 usuários
-    { duration: "30s", target: 0 }, // Finaliza removendo todos os usuários
+    { duration: "5m", target: 10 }, // 30s com 1 usuários
   ],
 };
 
-const nonceCounter = new Counter("Nonce");
-const ethSended = new Counter("EthSended");
-const gasUsedGauge = new Gauge("GasUsedGauge");
-const txMinedTime = new Trend("TxMinedTime");
+const nonceCounter = new Counter("nonce_counter");
+const ethSended = new Counter("eth_sended_counter");
+const gasUsedGauge = new Gauge("gas_used_gauge");
+const txMinedTime = new Trend("tx_mined_time_trend");
 
 export default function () {
   const client = new eth.Client({
@@ -46,16 +40,9 @@ export default function () {
     nonce: NONCE,
   };
 
-  const startTime = new Date().getTime();
-  const TX_HASH = client.sendRawTransaction(tx);
-  client.waitForTransactionReceipt(TX_HASH).then((txMined) => {
-    const endTime = new Date().getTime();
-
-    ethSended.add(Number(0.0001 * 1e18));
-    gasUsedGauge.add(txMined.gas_used);
-    txMinedTime.add(endTime - startTime);
-  });
+  client.sendRawTransaction(tx);
 
   NONCE++;
   nonceCounter.add(1);
+  ethSended.add(Number(0.0001 * 1e18));
 }

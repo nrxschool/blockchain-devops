@@ -18,34 +18,54 @@ Vamos utilizar 2 tipos de métricas nesse teste para montar os graficos no grafa
 
 ### Metricas da blockchain via Besu/Prometheus
 
+- **ethereum_blockchain_height**: Bloco atual em cada node
+
+```sql
+ethereum_blockchain_height{job="besu_node"}
+```
+
+- **besu_blockchain_chain_head_transaction_count_counter_total**: Quantidade Total de Transações
+
+```sql
+besu_blockchain_chain_head_transaction_count_counter_total{node="besu-1"}
+```
+
+- **besu_transaction_pool_number_of_transactions**: Quantidade de Transações no MemPool
+
+```sql
+besu_transaction_pool_number_of_transactions{node="besu-1", layer="ready"}
+```
+
+- **up**: Funcionamento do Node
+
+```sql
+up{job="besu_node"}
+```
+
 ### Métricas do teste via K6/InfluxDB
 
-- **nonce_counter**:
+- **nonce_counter**: Número de Transações
 
 ```sql
 SELECT sum("value") FROM "nonce_counter"
 ```
 
-- **eth_sended_counter**:
+- **eth_sended_counter**: Total de ETH enviados
 
 ```sql
 SELECT sum("value") FROM "eth_sended_counter"
 ```
 
-- **gas_used_gauge**:
+- **gas_used_gauge**: Mínimo, atual e máximo de gas usado
 
 ```sql
-SELECT min("value") AS "min", last("value") AS "current", max("value") AS "max"
-FROM "gas_used_gauge"
-WHERE $timeFilter
-GROUP BY time($interval) fill(null)
+SELECT min("value") AS "min", last("value") AS "current", max("value") AS "max" FROM "gas_used_gauge" WHERE $timeFilter GROUP BY time($interval) fill(null)
 ```
 
-- **tx_mined_time_trend**:
+- **tx_mined_time_trend**: Tempo de mineração de uma transação mínimo, médio, máximo, percentil 90 e percentil 95
 
 ```sql
-SELECT min("value") AS MIN, max("value") AS MAX, mean("value") AS AVG, percentile("value", 95) AS p90, percentile("value", 99) AS p95
-FROM "tx_mined_time_trend" WHERE $timeFilter GROUP BY time($__interval) fill(null)
+SELECT min("value") AS "min", last("value") AS "current", max("value") AS "max" FROM "tx_mined_time_trend" WHERE $timeFilter GROUP BY time($interval) fill(null)
 ```
 
 ## Configuração do k6
@@ -79,7 +99,7 @@ Feito isso vc vai ter um binário `k6` no seu diretório e é ele que vamos usar
 drwxr-xr-x  6 olivmath  staff   192B Sep 15 23:59 .
 drwxr-xr-x  6 olivmath  staff   192B Sep 15 19:05 ..
 drwxr-xr-x  6 olivmath  staff   192B Sep 15 20:52 infra
--rwxr-xr-x  1 olivmath  staff    46M Sep 15 23:59 k6
+-rwxr-xr-x  1 olivmath  staff    46M Sep 15 23:59 k6 👈
 -rw-r--r--  1 olivmath  staff   4.9K Sep 15 22:31 roteiro.md
 -rw-r--r--  1 olivmath  staff   1.8K Sep 15 18:39 script.js
 ```

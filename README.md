@@ -87,27 +87,31 @@
 - Tópicos: Conceito e Script de teste
 - Projeto: Configurar e executar um Breakpoint Test para a aplicação, determinando a capacidade máxima antes do colapso
 
-**⏰ Aula 4.5: Teste de Carga com Blockchain**
+**✅ Aula 4.5: Teste de Carga com Blockchain**
 
 - Tópicos: Integrar nosso ambiente de teste com uma rede blockchain.
 - Projeto: Configurar e executar um Smoke Test para uma rede blockchain, verificar a resposta do sistema via Grafana.
 
 ## Módulo 5: Ciclo de Desenvolvimento de Smart Contracts
 
-**✅ Aula 6.1: Introdução ao Desenvolvimento de Smartcontracts EVM**
+**⏰ Aula 6.1: Introdução ao Desenvolvimento de Smartcontracts EVM**
 
 - Tópicos: História e Arquitetura do mundo EVM, instalar e configurar Foundry e ScaffoldETH2
 
-**✅ Aula 6.2: Ciclo de vida dos Smartcontract**
+**⏰ Aula 6.2: Ciclo de vida dos Smartcontract**
 
 - Tópicos: Planejamento, Desenvolvimento, Testes, Auditória, Deploy Testnet, Deploy Mainnet, Escrever Token ERC20
 - Projeto: Criar Token em solidity e fazer deploy no nosso Node
 
-**✅ Aula 6.3: Implementando uma Vending Machine TDD**
+**⏰ Aula 6.3: Implementando uma Vending Machine TDD**
 
 - Tópicos: Conceitos de TDD
 - Projeto: Escrever os testes para a Vending Machine
 
-**✅ Aula 6.4: Encerramento**
+**⏰ Aula 6.4: Integração continua e Entrega continua**
+
+- Tópicos: CI/CD, Testes, Analise estática e Deploy
+
+**⏰ Aula 6.4: Encerramento**
 
 - Tópicos: Recapitulação do curso

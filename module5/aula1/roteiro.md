@@ -1,7 +1,3 @@
-Aqui está o roteiro atualizado com as seções adicionais:
-
----
-
 # Aula 6.1: Introdução ao Desenvolvimento de Smartcontracts EVM
 
 ## Introdução
@@ -18,14 +14,51 @@ A Ethereum Virtual Machine (EVM) é uma máquina virtual descentralizada que per
 
 A EVM garante que, quando um contrato é executado, ele funcione da mesma forma em todas as máquinas da rede Ethereum, independentemente de onde o nó esteja localizado. É o componente responsável por manter a integridade do código executado na blockchain e assegurar que todos os participantes da rede possam confiar na execução exata dos contratos inteligentes.
 
-### Arquitetura
+### Arquitetura da EVM
 
-A arquitetura da EVM é baseada em um sistema de pilha (stack-based machine). Isso significa que ela utiliza uma pilha de execução (stack) para processar as operações em vez de um registrador tradicional como em outras máquinas virtuais. A arquitetura da EVM pode ser dividida nos seguintes componentes:
+A Ethereum Virtual Machine (EVM) é uma máquina virtual baseada em pilha (stack-based machine), ou seja, ela utiliza uma **pilha de execução** para processar operações. Ao contrário de máquinas com registradores, que podem armazenar múltiplas variáveis diretamente, na EVM, todos os dados temporários passam pela pilha. Sua arquitetura pode ser dividida nos seguintes componentes principais:
 
-- **Stack**: Armazena as variáveis temporárias e é usada para realizar operações como adicionar, subtrair, comparar valores, etc. A pilha é uma LIFO (Last In, First Out).
-- **Memory**: Uma memória volátil usada temporariamente durante a execução de contratos. É apagada quando a execução termina.
-- **Storage**: Diferente da memória, o armazenamento é persistente. É onde os dados permanentes de um contrato são mantidos.
-- **Gas**: Um conceito crucial na EVM, que limita a quantidade de trabalho que uma transação ou contrato pode fazer. O gas impede loops infinitos e garante que os mineradores sejam compensados pelo poder computacional usado.
+#### 1. **Stack (Pilha)**
+
+- **Função**: A pilha é usada para armazenar variáveis temporárias e realizar operações durante a execução de contratos. Todos os cálculos intermediários e dados de curta duração são manipulados na pilha.
+- **Características**:
+  - A pilha da EVM é uma estrutura LIFO (Last In, First Out), o que significa que o último valor colocado nela será o primeiro a ser retirado.
+  - Ela tem um limite fixo de 1024 elementos, e cada elemento ocupa 256 bits.
+  - A pilha é usada para operações como adicionar, subtrair, multiplicar, comparar valores, chamar funções, e empilhar resultados intermediários.
+
+#### 2. **Memory (Memória)**
+
+- **Função**: A memória é um espaço temporário e volátil utilizado durante a execução de um contrato inteligente. É usada para armazenar dados de maneira mais extensa do que a pilha, mas não é persistente.
+- **Características**:
+  - A memória é inicializada vazia e seus valores são apagados quando a execução do contrato termina.
+  - É usada para armazenar dados temporários que são maiores ou mais complexos do que os dados que cabem na pilha.
+  - A memória é acessada principalmente através de operações de leitura e escrita em arrays ou structs temporários.
+  - O custo de gas da memória aumenta linearmente com o uso, de acordo com o tamanho da alocação.
+
+#### 3. **Storage (Armazenamento)**
+
+- **Função**: O armazenamento é a área onde os dados permanentes de um contrato inteligente são mantidos. Isso inclui variáveis de estado, como saldos, permissões e outras informações persistentes.
+- **Características**:
+  - O storage é muito mais caro em termos de gas comparado à memória, porque é uma estrutura permanente, escrita e armazenada no blockchain.
+  - O armazenamento só é modificado quando variáveis de estado são atualizadas ou criadas.
+  - Cada posição de armazenamento tem um custo elevado de leitura e escrita, e a otimização do uso de storage é fundamental para contratos eficientes.
+  - O armazenamento persiste entre diferentes execuções de transações no mesmo contrato, permitindo que os contratos guardem informações ao longo do tempo.
+
+#### 4. **Calldata**
+
+- **Função**: O calldata é uma área de memória somente leitura usada para armazenar os dados de entrada de funções externas em um contrato inteligente. Ele contém os argumentos passados para a função.
+- **Características**:
+  - O calldata é imutável, ou seja, uma vez que os dados são fornecidos a uma função, eles não podem ser modificados durante a execução.
+  - Ao contrário da memória e do storage, o calldata é mais eficiente em termos de gas, pois é usado para dados temporários e de passagem.
+  - Calldata é ideal para receber parâmetros de entrada sem a necessidade de alocação de memória adicional. Um uso típico do calldata é em funções `external`, que utilizam diretamente os dados de entrada.
+  - Quando uma função `external` é chamada, o calldata armazena o endereço do contrato, o seletor da função, e os argumentos passados, e esses dados podem ser lidos diretamente.
+
+#### 5. **Gas**
+
+- **Função**: O gas é uma unidade de medida que limita a quantidade de trabalho computacional que uma transação ou contrato pode realizar. Ele também serve para compensar os mineradores pela execução dos contratos e impedir loops infinitos.
+- **Características**:
+  - Cada operação na EVM tem um custo de gas associado. Operações mais intensivas, como escrita em storage, consomem mais gas.
+  - O gas é necessário para assegurar que os contratos sejam executados de forma eficiente e para evitar ataques de negação de serviço (DoS), onde uma transação poderia travar a rede ao consumir poder computacional excessivo.
 
 ### Básico sobre smartcontracts
 
@@ -44,6 +77,11 @@ Ferramentas de desenvolvimento para a EVM evoluíram bastante nos últimos anos.
 - **Truffle**: É uma das ferramentas mais antigas e amplamente usadas para desenvolvimento de contratos inteligentes. Ele fornece um ambiente de desenvolvimento completo, com gerenciamento de projetos, compilação de contratos e testes.
 - **Hardhat**: Mais recente que o Truffle, o Hardhat tornou-se popular pela sua flexibilidade e melhor integração com ferramentas de depuração e teste. Ele permite um controle mais refinado do ambiente de desenvolvimento e oferece recursos como o Hardhat Network, uma blockchain local que permite testes rápidos.
 
+### Bronie e ApeWorkx
+
+- **Bronie**: É uma ferramenta de desenvolvimento que facilita a criação e gerenciamento de contratos inteligentes, focando em simplicidade e usabilidade. Bronie se destaca por sua interface amigável e por permitir que desenvolvedores menos experientes naveguem facilmente pelo processo de construção de DApps. Além disso, oferece recursos integrados para testes automatizados e integração com serviços de armazenamento descentralizado.
+- **ApeWorkx**: Parte do ecossistema Ape, é uma coleção de ferramentas projetadas para facilitar o desenvolvimento em Solidity. ApeWorkx inclui uma série de utilidades para otimização de contratos e ferramentas de análise, permitindo que os desenvolvedores implementem e testem seus contratos com eficiência. A plataforma também oferece suporte para integração com wallets e ferramentas de monitoramento de eventos.
+
 Ambas as ferramentas têm integração com bibliotecas populares como OpenZeppelin e suporte para deploy em várias blockchains compatíveis com a EVM.
 
 ### Ecosistema Foundry
@@ -51,9 +89,9 @@ Ambas as ferramentas têm integração com bibliotecas populares como OpenZeppel
 Foundry é uma nova suíte de ferramentas para desenvolvimento de contratos inteligentes que oferece uma experiência mais leve e eficiente. Ele foi projetado para ser rápido e fácil de usar, com foco em uma integração contínua e testes eficientes.
 
 - **Forge**: A ferramenta principal para compilação e teste de contratos. É extremamente rápida em comparação com outras soluções.
+- **Anvil**: Um servidor de desenvolvimento que simula uma blockchain local altamente configurável e facilita a simulação de diferentes cenários de rede, como ataques ou falhas.
 - **Cast**: Utilizada para interagir diretamente com contratos, realizar chamadas de leitura, escrita e outras operações na blockchain.
-
-Foundry é especialmente útil para desenvolvedores que priorizam velocidade no ciclo de desenvolvimento e desejam um ambiente de trabalho enxuto.
+- **Chisel**: REPL de solidity rápido e útil.
 
 ---
 

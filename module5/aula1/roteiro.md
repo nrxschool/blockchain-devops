@@ -95,22 +95,7 @@ Foundry é uma nova suíte de ferramentas para desenvolvimento de contratos inte
 
 ---
 
-## Setup e Tour pelo Template
-
-Agora que entendemos as ferramentas disponíveis, vamos configurar o ambiente de desenvolvimento.
-
-Primeiro, vamos usar o **ScaffoldETH2** como nossa base. ScaffoldETH2 é um template que combina várias ferramentas modernas e boas práticas de desenvolvimento de contratos inteligentes. Ele oferece integração com as bibliotecas necessárias, uma interface de usuário simples para testar seus contratos e a possibilidade de desenvolvimento ágil.
-
-Aqui está o processo básico para configurar:
-
-1. **Clone o repositório** de ScaffoldETH2 do GitHub.
-2. **Instale as dependências** com o Yarn ou npm.
-3. **Inicie o ambiente local**, que inclui uma blockchain de testes e uma interface de usuário para interagir com seus contratos.
-4. Faça um tour pela estrutura do projeto, incluindo os contratos, testes e a interface React já configurada.
-
-Esse setup irá fornecer uma base sólida para iniciar seus projetos de smartcontracts com um fluxo de trabalho já otimizado.
-
----
+Aqui está a conclusão do tópico com o SDLC (Security Development Life-Cycle):
 
 ## Ciclo de desenvolvimento de contratos
 
@@ -127,6 +112,56 @@ Auditar contratos inteligentes é um passo crucial. Diferente de outros tipos de
 ### Testnet First
 
 Antes de implantar um contrato na rede principal, ele deve ser testado exaustivamente em uma testnet. Testnets como Ropsten, Goerli ou Sepolia oferecem uma réplica do ambiente de produção, mas com ativos simulados, permitindo testes sem risco financeiro. Certifique-se de que todas as funcionalidades estejam funcionando conforme o esperado na testnet antes de seguir para a mainnet.
+
+## SDLC (Security Development Life-Cycle)
+
+O SDLC (Security Development Life-Cycle) é um modelo que integra práticas de segurança em todas as etapas do ciclo de desenvolvimento de software, desde o planejamento até a manutenção. Para contratos inteligentes, adotar o SDLC é crucial para mitigar riscos e garantir a integridade dos contratos. As fases principais do SDLC incluem:
+
+1. dev: Fase de desenvolvimento do contrato, deve ser feito usando TDD/BDD.
+2. test: Auditória simples via analizador estático de código.
+3. local: Deploy local para testar integração via Frontend.
+4. audit: Auditoria nos contratos
+5. fix: Correção das vulnerabilidades encontradas
+6. testnet: Deploy na testnet para teste com usuários reais
+7. mainnet: Deploy na mainnet para uso real
+
+---
+
+## Setup e Tour pelo Template
+
+Agora que entendemos as ferramentas disponíveis, vamos configurar o ambiente de desenvolvimento.
+
+Pra isso vamos usar um fork do **ScaffoldETH2** que eu integrei com o Foundry. Esse template combina várias ferramentas e oferece exemplos de integração com as bibliotecas web3 e uma interface dinâmica para testar e interagir com o contrato.
+
+1. **Instalar o template**
+
+```bash
+git clone https://github.com/olivmath/fwt
+```
+
+2. **Instalar as dependencias**
+
+```bash
+cd fwt/ui
+npm install # ou yarn ou pnpm install
+```
+
+3. **Levantar o ambiente**
+
+Você vai precisar de 3 terminais:
+
+- **Blockchain**
+
+```bash
+anvil -b 2 # minerar blocos a cada 2 segundos
+```
+
+- **Deploy dos contratos**
+
+```bash
+cd smartcontracts
+./deploy-on-local.sh
+```
 
 ---
 

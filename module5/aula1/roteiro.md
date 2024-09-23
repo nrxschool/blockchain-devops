@@ -77,7 +77,7 @@ Ferramentas de desenvolvimento para a EVM evoluíram bastante nos últimos anos.
 - **Truffle**: É uma das ferramentas mais antigas e amplamente usadas para desenvolvimento de contratos inteligentes. Ele fornece um ambiente de desenvolvimento completo, com gerenciamento de projetos, compilação de contratos e testes.
 - **Hardhat**: Mais recente que o Truffle, o Hardhat tornou-se popular pela sua flexibilidade e melhor integração com ferramentas de depuração e teste. Ele permite um controle mais refinado do ambiente de desenvolvimento e oferece recursos como o Hardhat Network, uma blockchain local que permite testes rápidos.
 
-### Bronie e ApeWorkx
+### Brownie e ApeWorkx
 
 - **Bronie**: É uma ferramenta de desenvolvimento que facilita a criação e gerenciamento de contratos inteligentes, focando em simplicidade e usabilidade. Bronie se destaca por sua interface amigável e por permitir que desenvolvedores menos experientes naveguem facilmente pelo processo de construção de DApps. Além disso, oferece recursos integrados para testes automatizados e integração com serviços de armazenamento descentralizado.
 - **ApeWorkx**: Parte do ecossistema Ape, é uma coleção de ferramentas projetadas para facilitar o desenvolvimento em Solidity. ApeWorkx inclui uma série de utilidades para otimização de contratos e ferramentas de análise, permitindo que os desenvolvedores implementem e testem seus contratos com eficiência. A plataforma também oferece suporte para integração com wallets e ferramentas de monitoramento de eventos.

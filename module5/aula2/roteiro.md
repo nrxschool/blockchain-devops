@@ -1,7 +1,3 @@
-Aqui está a versão expandida para a Aula 6.2 sobre o padrão ERC20, conforme solicitado:
-
----
-
 # Aula 6.2: Padrão ERC20
 
 ## Introdução
@@ -14,75 +10,44 @@ Nesta aula, vamos entender o que são **Ethereum Improvement Proposals (EIPs)**,
 
 Os **Ethereum Improvement Proposals (EIPs)** são documentos que especificam novos recursos ou processos para a Ethereum. Eles são utilizados para sugerir mudanças técnicas no protocolo, melhorias na rede ou introduzir novos padrões para contratos e tokens.
 
+- [eips.ethereum](https://eips.ethereum.org)
+
 Um dos EIPs mais famosos é o **EIP-20**, que define o padrão de tokens **ERC-20**. Esse padrão garante que todos os tokens ERC-20 tenham um conjunto básico de funções e eventos, como `transfer`, `approve`, `transferFrom` e `totalSupply`, permitindo que esses tokens sejam facilmente integrados a carteiras, exchanges e outros contratos inteligentes.
 
-- **ERC-20**: O ERC-20 é o padrão mais utilizado para tokens fungíveis. Esses tokens são intercambiáveis (um token é igual ao outro) e podem representar qualquer ativo digital, como moedas, pontos de recompensa ou ações.
+- [erc20](https://eips.ethereum.org/EIPS/eip-20)
+
+**ERC-20**: O ERC-20 é o padrão mais utilizado para tokens fungíveis. Esses tokens são intercambiáveis (um token é igual ao outro) e podem representar qualquer ativo digital, como moedas, pontos de recompensa ou ações.
 
 ---
 
 ## Implementando um ERC-20
 
-Agora que entendemos o que são EIPs e o papel do ERC-20, vamos implementar um contrato simples que segue esse padrão.
-
-1. **Criando o token ERC-20**:
-
-   - Definiremos as funções básicas exigidas pelo padrão ERC-20, como `totalSupply`, `balanceOf`, `transfer`, `approve` e `transferFrom`.
-   - Utilizaremos a biblioteca **OpenZeppelin**, que fornece implementações seguras e auditadas de contratos ERC-20, para evitar reinventar a roda.
-
-2. **Função `mint` com bug de Access Control**:
-   - Vamos implementar uma função `mint` que permite a criação de novos tokens.
-   - No entanto, nesta implementação inicial, vamos deliberadamente deixar uma vulnerabilidade: **qualquer pessoa poderá chamar a função `mint`** e criar tokens, o que é um problema grave de controle de acesso. Esse bug será corrigido mais tarde na aula, mas serve como uma lição importante sobre a segurança em contratos inteligentes.
+- `IERC20.sol`: Interface com funções
+- `ERC20.sol`: Implementação da interface
+- `Token.sol`: Criação do token
 
 ---
 
 ## Escrevendo testes automatizados para ERC-20
 
-Testes automatizados são essenciais no desenvolvimento de contratos inteligentes, já que eles ajudam a detectar erros e vulnerabilidades antes de realizar o deploy em uma rede pública. Vamos configurar um ambiente de testes para nosso contrato ERC-20 usando o **Hardhat** ou o **Foundry**.
-
-1. **Escrevendo testes para funções básicas**:
-
-   - Testar a funcionalidade do `transfer` entre contas.
-   - Verificar o comportamento de `approve` e `transferFrom`.
-   - Certificar-se de que o `totalSupply` aumenta corretamente quando a função `mint` é chamada.
-
-2. **Testando a vulnerabilidade de controle de acesso**:
-   - Um dos testes mais importantes será verificar quem pode chamar a função `mint`.
-   - O teste deverá falhar, pois nossa implementação inicial deixa essa função aberta para qualquer usuário, o que leva à vulnerabilidade.
+- Teste para validar transaferencias
 
 ---
 
-## Corrigindo a vulnerabilidade de Access Control
+## Explorando a vulnerabilidade de Access Control
 
-Agora que nossos testes mostraram a vulnerabilidade de controle de acesso, vamos corrigi-la.
-
-1. **Introduzindo controle de acesso**:
-
-   - Vamos modificar a função `mint` para que apenas o **dono do contrato** ou um endereço autorizado possa criar novos tokens.
-   - Utilizaremos o modificador **`onlyOwner`** da biblioteca OpenZeppelin, que permite restringir o acesso de certas funções para o dono do contrato.
-
-2. **Reescrevendo os testes**:
-   - Após a correção, reescreveremos nossos testes para garantir que a função `mint` só possa ser chamada por usuários autorizados.
-   - O teste agora deverá passar, indicando que a vulnerabilidade foi corrigida.
+- Criar contrato de ataque
+- Escrever teste para validar `mint` por alguém não autorizado
 
 ---
 
 ## Deploy local, Configuração Metamask e Transferências
 
-Com o contrato corrigido e testado, podemos realizar o **deploy** localmente e interagir com o token usando uma carteira como o **Metamask**.
-
 1. **Deploy local**:
-
-   - Usaremos ferramentas como Hardhat ou Foundry para realizar o deploy em uma blockchain local ou testnet, como **Goerli** ou **Sepolia**.
-   - Ao realizar o deploy, você verá o endereço do contrato na blockchain, e poderá começar a interagir com ele.
 
 2. **Configurando o Metamask**:
 
-   - Adicionaremos o token criado no Metamask para que possamos ver os saldos e realizar transferências.
-   - No Metamask, vamos adicionar o endereço do contrato e configurar as propriedades do token, como nome e símbolo.
-
 3. **Realizando transferências**:
-   - Com o contrato ativo e o Metamask configurado, faremos transferências entre diferentes contas para demonstrar a funcionalidade do token ERC-20.
-   - Vamos testar as transferências diretamente pela interface do Metamask e observar as transações ocorrendo na rede.
 
 ---
 
@@ -106,13 +71,13 @@ O **padrão ERC-20** é amplamente utilizado e tem uma grande importância no ec
 
 ## Lição de casa
 
-1. **Implementar um token ERC-20** usando a biblioteca OpenZeppelin com uma função `mint` segura.
-2. **Escrever testes automatizados** para todas as funções do token, incluindo a verificação de controle de acesso.
-3. Realizar o **deploy local** do contrato e testar a funcionalidade de transferências com o Metamask.
-4. Opcional: Fazer o deploy do seu token em uma **testnet pública** como Goerli ou Sepolia e compartilhar o endereço com colegas para testar.
+1. **Implementar outros tokens ERC-20**: Crie e faça deploy de outros tokens e adicione na sua metamask.
+2. **Escrever testes automatizados**: Escreva um teste para validar o funcionamento do `approve` e `transferFrom`.
+3. **Corrigir vulnerabilidade de Access Control**: Tente corrigir a vulnerabilidade da função `mint`.
+4. **Deploy na testnet**: Faça deploy do seu token em uma **testnet pública** e publique no Linkeind.
 
 ---
 
 ## Próxima Aula
 
-Na próxima aula, vamos continuar estudando sobre segurança e entender como realizar e corrigir um ataque de `Reentrancia`.
+Na próxima aula, vamos continuar estudando sobre segurança, corrigir nossa vulnerabilidade e criar um novo contrato para entender como realizar e corrigir um ataque de `Reentrancia`.

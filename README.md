@@ -103,6 +103,6 @@
 - Tópicos: Conceitos de TDD
 - Projeto: Escrever os testes para a Vending Machine
 
-**⏰ Aula 6.4: Encerramento**
+**✅ Aula 6.4: Encerramento**
 
 - Tópicos: Recapitulação do curso e próximos passos

